@@ -3,6 +3,7 @@
   "milestone": "M3",
   "cases": [
     "pointers-e33.json",
-    "pointer-write-e33.json"
+    "pointer-write-e33.json",
+    "new-end-e33.json"
   ]
 }
