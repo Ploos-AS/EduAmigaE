@@ -7,7 +7,7 @@ Forstå hvorfor E bruker moduler, hvordan et program importerer en modul, og hvo
 ## Importere en modul
 
 ```e
-MODULE 'exec/types'
+MODULE 'exec/nodes'
 
 PROC main()
   WriteF('module import ok\n')
@@ -16,7 +16,7 @@ ENDPROC
 
 **Kompatibilitet:** E33.
 
-`MODULE` gjør deklarasjoner fra en modul tilgjengelige for kildekoden. Modulnavnet er ikke en privat Ploos-avhengighet; eksemplet bruker en standard modul fra Amiga E/E-VO-miljøet.
+`MODULE` gjør deklarasjoner fra en modul tilgjengelige for kildekoden. Modulnavnet er ikke en privat Ploos-avhengighet; eksemplet bruker `exec/nodes`, som finnes i E-VO 3.9.4 sitt `modules/exec`-tre.
 
 ```sh
 eduamigae build examples/09-modules/modules.e
