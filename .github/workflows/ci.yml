@@ -26,3 +26,9 @@ jobs:
         run: docker build -f student/Dockerfile -t eduamigae-student:test .
       - name: Self-test open environment
         run: docker run --rm eduamigae-student:test -c eduamigae-self-test
+      - name: Assert E-VO remains external
+        run: |
+          if docker run --rm eduamigae-student:test -c 'test -e /toolchains/evo/3.9.4/EVO'; then
+            echo "student image unexpectedly contains E-VO" >&2
+            exit 1
+          fi
