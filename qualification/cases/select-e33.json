@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "select-e33",
+  "source": "examples/03-control-flow/select.e",
+  "output": "select",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "two\n",
+    "exit": "success"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
