@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "lanes": {
+    "evo-vamos-compile": {
+      "compiler": "E-VO 3.9.4",
+      "executor": "vamos",
+      "level": "Q1",
+      "purpose": "fast compile qualification"
+    },
+    "evo-a500": {
+      "compiler": "E-VO 3.9.4",
+      "executor": "amiga-runtime",
+      "profile": "a500",
+      "purpose": "68000 runtime qualification"
+    },
+    "evo-a1200": {
+      "compiler": "E-VO 3.9.4",
+      "executor": "amiga-runtime",
+      "profile": "a1200-020",
+      "purpose": "68020 runtime qualification"
+    }
+  }
+}
