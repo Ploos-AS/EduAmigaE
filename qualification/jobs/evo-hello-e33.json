@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "id": "evo-hello-e33",
+  "command": "EVO",
+  "arguments": [
+    "hello.e",
+    "NOPROGRESS",
+    "IGNORECACHE"
+  ],
+  "assigns": {
+    "EMODULES:": "EVO:Modules"
+  },
+  "expected_artifacts": [
+    "hello"
+  ],
+  "expected_exit": 0
+}
