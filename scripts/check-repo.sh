@@ -1,9 +1,9 @@
 #!/bin/sh
 set -eu
 
-python3 -m py_compile scripts/verify-case.py scripts/case-info.py scripts/evidence-stdout.py
+python3 -m py_compile scripts/verify-case.py scripts/case-info.py scripts/evidence-stdout.py scripts/materialize-milestone.py
 
-for f in qualification/*.json qualification/cases/*.json qualification/jobs/*.json amiga-runtime.json book/book.json; do
+for f in qualification/*.json qualification/cases/*.json qualification/jobs/*.json qualification/milestones/*.json amiga-runtime.json book/book.json; do
   [ -f "$f" ] || continue
   python3 -m json.tool "$f" >/dev/null
 done
@@ -67,5 +67,23 @@ assert d["fail"] == 1, d
 assert d["skip"] == 1, d
 assert d["pass"] == 0, d
 PY
+
+for milestone in qualification/milestones/*.json; do
+  [ -f "$milestone" ] || continue
+  name=$(basename "$milestone" .json)
+  dest="$tmp/milestone-$name"
+  python3 scripts/materialize-milestone.py "$milestone" "$dest" >/dev/null
+  for casefile in "$dest"/*.json; do
+    python3 scripts/case-info.py "$casefile" >/dev/null
+  done
+done
+
+cat >"$tmp/bad-milestone.json" <<'EOF'
+{"schema":1,"milestone":"BAD","cases":["../hello-e33.json"]}
+EOF
+if python3 scripts/materialize-milestone.py "$tmp/bad-milestone.json" "$tmp/bad-materialized" >/dev/null 2>&1; then
+  echo "unsafe milestone case path unexpectedly accepted" >&2
+  exit 1
+fi
 
 echo "repository checks: PASS"
