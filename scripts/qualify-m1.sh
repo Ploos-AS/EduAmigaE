@@ -7,12 +7,13 @@ command -v amiga-runtime >/dev/null 2>&1 || {
   exit 69
 }
 
-eduamigae doctor
-eduamigae qualify qualification/cases/hello-e33.json
+CLI=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)/eduamigae
+"$CLI" doctor
+"$CLI" qualify qualification/cases/hello-e33.json
 
 mkdir -p build/qualification
 python3 - <<'PY'
-import hashlib, json, pathlib, subprocess
+import hashlib, json, pathlib
 src=pathlib.Path("examples/00-hello/hello.e")
 exe=pathlib.Path("build/qualification/hello")
 out={
