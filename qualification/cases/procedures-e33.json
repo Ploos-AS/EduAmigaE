@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "procedures-e33",
+  "source": "examples/05-procedures/procedures.e",
+  "output": "procedures",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "square=49\n",
+    "exit": "success"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
