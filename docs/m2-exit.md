@@ -43,3 +43,20 @@ A compiler failure, runtime failure, output mismatch, malformed case, or failed 
 After M2, a learner should be able to write a small E33-compatible command-line program using variables, expressions, decisions, repetition, procedures, strings, arrays, structured data and imported modules, and use a systematic process to diagnose errors.
 
 AmigaOS-specific APIs, pointers and explicit memory management are not required for M2. Those belong to later milestones.
+
+## Automated runner
+
+Run the milestone qualification with:
+
+```sh
+sh scripts/qualify-m2.sh
+```
+
+The runner writes:
+
+- `build/qualification/m2-cases.json` — aggregate per-case PASS/FAIL/SKIP results.
+- `build/qualification/m2.json` — milestone evidence with case count, manifest hashes, declared profiles and aggregate-report hash.
+
+The GitHub `Qualification` workflow has a dedicated M2 job for a provisioned self-hosted runner.
+
+The current E33 runtime profiles used by the fundamentals cases are names provided by `Ploos-AS/amiga-runtime`: `amiga-ocs-68000-1m` and `a1200-020`.
