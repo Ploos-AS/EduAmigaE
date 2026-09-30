@@ -20,6 +20,18 @@ The program creates a `LONG` containing 42, points `p` at it, and reads the same
 
 Build and test the example through the EduAmigaE tools. The qualification case is `pointers-e33`.
 
+## Writing through a pointer
+
+A dereferenced pointer can also appear on the left side of an assignment. In `examples/11-pointers/pointer-write.e`:
+
+```text
+^p := 99
+```
+
+changes `value` itself because `p` points at that variable. The `pointer-write-e33` qualification case checks that both direct access to `value` and access through `^p` produce 99.
+
+This distinction matters: assigning to `p` changes the address held by the pointer, while assigning to `^p` changes the data at that address.
+
 ## Change it
 
 Change the initial value from 42 to another value. Predict both numbers in the output before running the program.
