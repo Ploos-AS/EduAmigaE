@@ -54,7 +54,22 @@ case "$cmd" in
     for casefile in "$cases_dir"/*.json; do
       [ -f "$casefile" ] || continue
       total=$((total + 1))
-      id=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["id"])' "$casefile")
+      case_helper="$SCRIPT_DIR/case-info.py"
+      [ -f "$case_helper" ] || case_helper="$LIB_DIR/case-info.py"
+      set +e
+      info=$(python3 "$case_helper" "$casefile" 2>"$tmp/case-error")
+      info_rc=$?
+      set -e
+      if [ "$info_rc" -ne 0 ]; then
+        id=$(basename "$casefile")
+        reason=$(tr '\n\t' '  ' <"$tmp/case-error")
+        echo "FAIL $id: invalid qualification case"
+        fail=$((fail + 1))
+        printf '%s\tFAIL\t%s\n' "$id" "invalid case: $reason" >>"$tmp/results"
+        continue
+      fi
+      eval "$info"
+      id=$ID
       if [ ! -d "${EVO_HOME:-}" ] || [ ! -f "${EVO_HOME:-}/E-VO.guide" ]; then
         echo "SKIP $id: E-VO 3.9.4 not provisioned"
         skip=$((skip + 1))
