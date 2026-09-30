@@ -24,3 +24,21 @@ jobs:
           name: eduamigae-m1-evidence
           path: build/qualification/
           if-no-files-found: error
+
+  m2:
+    # Full fundamentals qualification. The runner supplies E-VO and
+    # amiga-runtime; neither proprietary AmigaOS nor Kickstart is stored here.
+    runs-on: [self-hosted, eduamigae, amiga-runtime]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require provisioned E-VO
+        run: test -f "${EVO_HOME:?EVO_HOME must be configured}/E-VO.guide"
+      - name: Qualify all M2 fundamentals
+        run: sh scripts/qualify-m2.sh
+      - name: Upload M2 qualification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eduamigae-m2-evidence
+          path: build/qualification/
+          if-no-files-found: error
