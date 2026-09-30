@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-import json, pathlib, re, shlex, sys
+import json, pathlib, re, sys
 
-if len(sys.argv) != 2:
-    raise SystemExit("usage: case-info.py CASE")
+if len(sys.argv) not in {2,4} or (len(sys.argv) == 4 and sys.argv[2] != "--field"):
+    raise SystemExit("usage: case-info.py CASE [--field FIELD]")
 p=pathlib.Path(sys.argv[1])
 d=json.loads(p.read_text(encoding="utf-8"))
 required=("id","source","output","compatibility","expected","profiles")
@@ -23,8 +23,14 @@ if any(not isinstance(x,str) or not safe_name.fullmatch(x) for x in d["profiles"
 q=pathlib.PurePosixPath(d["source"])
 if q.is_absolute() or ".." in q.parts:
     raise SystemExit("unsafe source path")
-for key,value in {
-    "ID":d["id"],"SOURCE":d["source"],"OUTPUT":d["output"],
-    "COMPATIBILITY":d["compatibility"],"PROFILES":",".join(d["profiles"])
-}.items():
-    print(key+"="+shlex.quote(value))
+fields={
+    "id":d["id"], "source":d["source"], "output":d["output"],
+    "compatibility":d["compatibility"], "profiles":",".join(d["profiles"])
+}
+if len(sys.argv) == 4:
+    key=sys.argv[3]
+    if key not in fields:
+        raise SystemExit("unknown field")
+    print(fields[key])
+else:
+    print(json.dumps(fields,separators=(",",":")))
