@@ -32,6 +32,7 @@ COPY scripts/import-evo.sh /usr/local/bin/eduamigae-import-evo
 COPY scripts/eduamigae /usr/local/bin/eduamigae
 COPY scripts/case-info.py /usr/local/lib/eduamigae/case-info.py
 COPY scripts/verify-case.py /usr/local/lib/eduamigae/verify-case.py
+COPY scripts/evidence-stdout.py /usr/local/lib/eduamigae/evidence-stdout.py
 
 RUN chmod 0755 /usr/local/bin/eduamigae-self-test /usr/local/bin/eduamigae-compile /usr/local/bin/eduamigae-import-evo /usr/local/bin/eduamigae \
  && mkdir -p /opt/eduamigae/vamos/system /toolchains/evo
