@@ -31,6 +31,24 @@ eduamigae run build/control-flow
 
 Prøv verdiene 10, 11 og -1. Bytt deretter `>` med en annen sammenligning.
 
+## Flere valg med SELECT
+
+Når én verdi skal sammenlignes med flere konkrete alternativer, kan `SELECT` være tydeligere enn en lang kjede med `IF`:
+
+```e
+PROC main()
+  DEF value
+  value := 2
+  SELECT value
+  CASE 1; WriteF('one\n')
+  CASE 2; WriteF('two\n')
+  CASE 3; WriteF('three\n')
+  ENDSELECT
+ENDPROC
+```
+
+Kilde: `examples/03-control-flow/select.e`. Dette mønsteret er også brukt i E-VO 3.9.4-kildene.
+
 ## Tenk
 
 Hva skjer akkurat på grensen 10? Hvorfor er grenseverdier viktige når programmer testes?
