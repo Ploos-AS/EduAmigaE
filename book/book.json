@@ -10,7 +10,8 @@
       "no/04-lokker.md",
       "no/05-prosedyrer.md",
       "no/06-strenger.md",
-      "no/07-arrays.md"
+      "no/07-arrays.md",
+      "no/08-strukturer-med-object.md"
     ],
     "en": [
       "en/00-getting-started.md",
@@ -20,7 +21,8 @@
       "en/04-loops.md",
       "en/05-procedures.md",
       "en/06-strings.md",
-      "en/07-arrays.md"
+      "en/07-arrays.md",
+      "en/08-structured-data-with-object.md"
     ]
   }
 }
