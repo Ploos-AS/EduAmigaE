@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "strings-e33",
+  "source": "examples/06-strings/strings.e",
+  "output": "strings",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "Hello, Amiga!\n",
+    "exit": "success"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
