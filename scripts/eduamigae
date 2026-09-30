@@ -2,6 +2,16 @@
 set -eu
 
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+LIB_DIR=${EDUAMIGAE_LIB_DIR:-/usr/local/lib/eduamigae}
+
+py_helper() {
+  name=$1
+  shift
+  if [ -f "$SCRIPT_DIR/$name" ]; then
+    exec python3 "$SCRIPT_DIR/$name" "$@"
+  fi
+  exec python3 "$LIB_DIR/$name" "$@"
+}
 
 run_helper() {
   installed=$1
@@ -90,7 +100,11 @@ PY
   qualify)
     casefile=${1:?usage: eduamigae qualify CASE}
     test -f "$casefile" || { echo "case not found: $casefile" >&2; exit 66; }
-    info=$(python3 "$SCRIPT_DIR/case-info.py" "$casefile")
+    if [ -f "$SCRIPT_DIR/case-info.py" ]; then
+      info=$(python3 "$SCRIPT_DIR/case-info.py" "$casefile")
+    else
+      info=$(python3 "$LIB_DIR/case-info.py" "$casefile")
+    fi
     eval "$info"
     test -f "$SOURCE" || { echo "case source not found: $SOURCE" >&2; exit 66; }
     mkdir -p build/qualification
@@ -138,7 +152,11 @@ print(d["guest_output"]["stdout"])
 PY
 )
     stdout="$evidence/$stdout_rel"
-    python3 "$SCRIPT_DIR/verify-case.py" "$casefile" "$stdout"
+    if [ -f "$SCRIPT_DIR/verify-case.py" ]; then
+      python3 "$SCRIPT_DIR/verify-case.py" "$casefile" "$stdout"
+    else
+      python3 "$LIB_DIR/verify-case.py" "$casefile" "$stdout"
+    fi
     ;;
   help|-h|--help)
     cat <<'EOF'
