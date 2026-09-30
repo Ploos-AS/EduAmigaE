@@ -16,7 +16,7 @@ ENDPROC
 
 **Kompatibilitet:** E33.
 
-`MODULE` gjør deklarasjoner fra en modul tilgjengelige for kildekoden. Modulnavnet er ikke en privat Ploos-avhengighet; eksemplet bruker `exec/nodes`, som finnes i E-VO 3.9.4 sitt `modules/exec`-tre.
+`MODULE` gjør deklarasjoner fra en modul tilgjengelige for kildekoden. Modulnavnet er ikke en privat Ploos-avhengighet; eksemplet bruker `exec/nodes`, en standard Exec-modul som finnes i E-VO 3.9.4 sitt `modules/exec`-tre. `exec/types` finnes også; `exec/nodes` brukes her fordi den gir et konkret, lett gjenkjennelig OBJECT-eksempel senere i kurset.
 
 ```sh
 eduamigae build examples/09-modules/modules.e
