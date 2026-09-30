@@ -35,7 +35,24 @@ Exit: a student can obtain the public materials and build the first program with
 
 Implement the beginner path through values, variables, expressions, control flow, procedures, strings, arrays, structured data, modules and debugging.
 
-All lessons include runnable examples and exercises.
+- [x] first-program workflow
+- [x] values and variables
+- [x] expressions and arithmetic operators
+- [x] conditional control flow
+- [x] loops and repetition
+- [x] procedures, parameters and return values
+- [x] strings
+- [x] arrays and indexing
+- [x] structured data with OBJECT
+- [x] module imports and module-source model
+- [x] systematic debugging and error categories
+- [x] Norwegian and English chapter parity
+- [x] runnable qualification cases for the executable fundamentals
+- [ ] validate every M2 qualification case with E-VO 3.9.4
+- [ ] record amiga-runtime PASS for every declared M2 profile
+- [ ] retain a complete M2 exit report
+
+Exit: the learner can write, structure and debug small E33-compatible programs without AmigaOS-specific programming. See `docs/m2-exit.md`.
 
 ## M3 — E beyond the basics
 
