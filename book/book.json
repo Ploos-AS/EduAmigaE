@@ -14,7 +14,8 @@
       "no/08-strukturer-med-object.md",
       "no/09-moduler.md",
       "no/10-debugging-og-feil.md",
-      "no/11-adresser-og-pekere.md"
+      "no/11-adresser-og-pekere.md",
+      "no/12-dynamisk-minne.md"
     ],
     "en": [
       "en/00-getting-started.md",
@@ -28,7 +29,8 @@
       "en/08-structured-data-with-object.md",
       "en/09-modules.md",
       "en/10-debugging-and-errors.md",
-      "en/11-addresses-and-pointers.md"
+      "en/11-addresses-and-pointers.md",
+      "en/12-dynamic-memory.md"
     ]
   }
 }
