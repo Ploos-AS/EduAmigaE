@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "list-ownership-e33",
+  "source": "examples/15-list-ownership/list-ownership.e",
+  "output": "list-ownership",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "node=10\nnode=20\nnode=30\n",
+    "exit": 0
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
