@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "hello-e33",
+  "source": "examples/00-hello/hello.e",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "Hello from EduAmigaE!\n",
+    "exit": "success"
+  },
+  "lanes": [
+    "e33-a500",
+    "evo-a500",
+    "evo-a1200"
+  ]
+}
