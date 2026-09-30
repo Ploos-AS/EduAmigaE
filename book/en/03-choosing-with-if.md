@@ -31,6 +31,24 @@ eduamigae run build/control-flow
 
 Try the values 10, 11, and -1. Then replace `>` with another comparison.
 
+## Multiple choices with SELECT
+
+When one value is compared with several concrete alternatives, `SELECT` can be clearer than a long chain of `IF` statements:
+
+```e
+PROC main()
+  DEF value
+  value := 2
+  SELECT value
+  CASE 1; WriteF('one\n')
+  CASE 2; WriteF('two\n')
+  CASE 3; WriteF('three\n')
+  ENDSELECT
+ENDPROC
+```
+
+Source: `examples/03-control-flow/select.e`. This pattern is also used by the E-VO 3.9.4 sources.
+
 ## Think
 
 What happens exactly at the boundary value 10? Why are boundary values important when testing programs?
