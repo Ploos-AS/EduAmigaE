@@ -7,6 +7,7 @@
     "new-end-e33.json",
     "dynamic-array-e33.json",
     "object-pointer-e33.json",
-    "linked-list-e33.json"
+    "linked-list-e33.json",
+    "list-ownership-e33.json"
   ]
 }
