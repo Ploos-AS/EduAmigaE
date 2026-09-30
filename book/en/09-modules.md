@@ -7,7 +7,7 @@ Understand why E uses modules, how a program imports one, and how module source 
 ## Importing a module
 
 ```e
-MODULE 'exec/types'
+MODULE 'exec/nodes'
 
 PROC main()
   WriteF('module import ok\n')
@@ -16,7 +16,7 @@ ENDPROC
 
 **Compatibility:** E33.
 
-`MODULE` makes declarations from a module available to the source file. The module name is not a private Ploos dependency; this example uses a standard module from the Amiga E/E-VO environment.
+`MODULE` makes declarations from a module available to the source file. The module name is not a private Ploos dependency; this example uses `exec/nodes`, which is present in E-VO 3.9.4's `modules/exec` tree.
 
 ```sh
 eduamigae build examples/09-modules/modules.e
