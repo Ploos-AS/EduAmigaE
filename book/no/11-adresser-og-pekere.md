@@ -20,6 +20,18 @@ Programmet oppretter en `LONG` med verdien 42, lar `p` peke på den og leser sam
 
 Bygg og test eksemplet gjennom EduAmigaE-verktøyene. Qualification-casen heter `pointers-e33`.
 
+## Skrive gjennom en peker
+
+En dereferert peker kan også brukes på venstre side av en tilordning. I `examples/11-pointers/pointer-write.e` gjør:
+
+```text
+^p := 99
+```
+
+at selve `value` endres, fordi `p` peker på denne variabelen. Qualification-casen `pointer-write-e33` kontrollerer at både direkte lesing av `value` og lesing gjennom `^p` gir 99.
+
+Dette er en viktig forskjell: tilordning til `p` endrer hvilken adresse pekeren inneholder, mens tilordning til `^p` endrer dataene på adressen.
+
 ## Endre det
 
 Endre startverdien fra 42 til en annen verdi. Forutsi begge tallene i utskriften før du kjører programmet.
