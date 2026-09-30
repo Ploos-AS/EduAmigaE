@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "arrays-e33",
+  "source": "examples/07-arrays/arrays.e",
+  "output": "arrays",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "2\n4\n6\n8\n10\n",
+    "exit": "success"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
