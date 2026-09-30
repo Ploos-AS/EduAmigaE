@@ -11,5 +11,10 @@
     "e33-a500",
     "evo-a500",
     "evo-a1200"
+  ],
+  "output": "hello",
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
   ]
 }
