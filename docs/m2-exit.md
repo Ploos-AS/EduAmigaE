@@ -11,8 +11,8 @@ The Norwegian and English editions must cover the same learning path:
 1. first program and build/run cycle
 2. values and variables
 3. expressions and operators
-4. conditional control flow
-5. loops
+4. conditional control flow with `IF` and `SELECT`
+5. repetition with `FOR` and `WHILE`
 6. procedures, parameters and return values
 7. strings
 8. arrays and indexing
@@ -27,7 +27,7 @@ Examples intended as executable course baselines are marked `E33`.
 M2 PASS requires:
 
 1. E-VO 3.9.4 is independently provisioned.
-2. Every JSON case in `qualification/cases/` parses successfully.
+2. Every case locked by `qualification/milestones/m2.json` parses successfully.
 3. Every M2 source compiles through the pinned E-VO/vamos path.
 4. Every declared runtime profile returns PASS through `amiga-runtime`.
 5. Guest stdout matches the case exactly.
