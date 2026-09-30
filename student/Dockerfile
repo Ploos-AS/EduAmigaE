@@ -8,7 +8,7 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 RUN python3 -m venv /opt/eduamigae/venv \
- && /opt/eduamigae/venv/bin/pip install --no-cache-dir amitools
+ && /opt/eduamigae/venv/bin/pip install --no-cache-dir 'amitools[vamos]==0.8.1'
 
 ENV PATH="/opt/eduamigae/venv/bin:$PATH"
 WORKDIR /course
