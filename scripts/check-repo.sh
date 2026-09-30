@@ -51,4 +51,21 @@ if python3 scripts/evidence-stdout.py "$tmp/evidence/bad.json" "$tmp/evidence" >
   exit 1
 fi
 
+mkdir -p "$tmp/cases"
+cp qualification/cases/hello-e33.json "$tmp/cases/hello.json"
+cp "$tmp/unsafe.json" "$tmp/cases/unsafe.json"
+set +e
+EVO_HOME="$tmp/no-evo" sh scripts/eduamigae qualify-all "$tmp/cases" "$tmp/aggregate.json" >/dev/null
+aggregate_rc=$?
+set -e
+[ "$aggregate_rc" -eq 1 ] || { echo "mixed invalid/SKIP aggregate must exit 1" >&2; exit 1; }
+python3 - "$tmp/aggregate.json" <<'PY'
+import json,sys
+d=json.load(open(sys.argv[1],encoding="utf-8"))
+assert d["total"] == 2, d
+assert d["fail"] == 1, d
+assert d["skip"] == 1, d
+assert d["pass"] == 0, d
+PY
+
 echo "repository checks: PASS"
