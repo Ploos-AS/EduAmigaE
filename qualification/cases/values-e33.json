@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "values-e33",
+  "source": "examples/01-values/values.e",
+  "output": "values",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "EduAmigaE year: 2026\n",
+    "exit": "success"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
