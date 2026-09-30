@@ -1,4 +1,8 @@
-FROM debian:13-slim AS builder
+ARG BASE_IMAGE=debian:13-slim
+ARG AMITOOLS_VERSION=0.8.1
+
+FROM ${BASE_IMAGE} AS builder
+ARG AMITOOLS_VERSION
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -8,10 +12,10 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 RUN python3 -m venv /opt/eduamigae/venv \
- && /opt/eduamigae/venv/bin/pip install --no-cache-dir 'amitools[vamos]==0.8.1'
+ && /opt/eduamigae/venv/bin/pip install --no-cache-dir "amitools[vamos]==${AMITOOLS_VERSION}"
 
 
-FROM debian:13-slim
+FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
 
