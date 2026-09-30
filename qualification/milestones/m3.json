@@ -2,6 +2,7 @@
   "schema": 1,
   "milestone": "M3",
   "cases": [
-    "pointers-e33.json"
+    "pointers-e33.json",
+    "pointer-write-e33.json"
   ]
 }
