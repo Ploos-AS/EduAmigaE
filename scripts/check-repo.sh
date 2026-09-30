@@ -8,9 +8,14 @@ for f in qualification/*.json qualification/cases/*.json qualification/jobs/*.js
   python3 -m json.tool "$f" >/dev/null
 done
 
-for f in scripts/*.sh; do
+for f in scripts/*.sh scripts/eduamigae; do
   sh -n "$f"
 done
+
+help=$(sh scripts/eduamigae help)
+printf '%s\n' "$help" | grep -q 'eduamigae doctor'
+printf '%s\n' "$help" | grep -q 'eduamigae import-evo'
+printf '%s\n' "$help" | grep -q 'eduamigae build'
 
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
