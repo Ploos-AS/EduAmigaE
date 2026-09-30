@@ -4,15 +4,6 @@ set -eu
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 LIB_DIR=${EDUAMIGAE_LIB_DIR:-/usr/local/lib/eduamigae}
 
-py_helper() {
-  name=$1
-  shift
-  if [ -f "$SCRIPT_DIR/$name" ]; then
-    exec python3 "$SCRIPT_DIR/$name" "$@"
-  fi
-  exec python3 "$LIB_DIR/$name" "$@"
-}
-
 run_helper() {
   installed=$1
   local_name=$2
@@ -135,23 +126,11 @@ PY
     AMIGA_RUNTIME_EVIDENCE="$evidence" amiga-runtime test-hunk "$program" --profile "$profile"
     result="$evidence/result.json"
     test -f "$result" || { echo "runtime produced no result.json" >&2; exit 1; }
-    python3 - "$result" <<'PY'
-import json, sys
-d=json.load(open(sys.argv[1], encoding="utf-8"))
-if d.get("status") != "PASS":
-    raise SystemExit("runtime qualification did not PASS")
-p=d.get("guest_output",{}).get("stdout")
-if not p:
-    raise SystemExit("runtime result has no guest stdout evidence")
-print(p)
-PY
-    stdout_rel=$(python3 - "$result" <<'PY'
-import json, sys
-d=json.load(open(sys.argv[1], encoding="utf-8"))
-print(d["guest_output"]["stdout"])
-PY
-)
-    stdout="$evidence/$stdout_rel"
+    if [ -f "$SCRIPT_DIR/evidence-stdout.py" ]; then
+      stdout=$(python3 "$SCRIPT_DIR/evidence-stdout.py" "$result" "$evidence")
+    else
+      stdout=$(python3 "$LIB_DIR/evidence-stdout.py" "$result" "$evidence")
+    fi
     if [ -f "$SCRIPT_DIR/verify-case.py" ]; then
       python3 "$SCRIPT_DIR/verify-case.py" "$casefile" "$stdout"
     else
