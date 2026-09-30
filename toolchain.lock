@@ -1,0 +1,6 @@
+# EduAmigaE canonical teaching-toolchain pins
+# This file records project policy; it is not a redistribution grant.
+
+EVO_VERSION=3.9.4
+E_REFERENCE_VERSION=3.3a
+CORE_CPU_BASELINE=68000
