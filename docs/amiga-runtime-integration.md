@@ -4,24 +4,57 @@ EduAmigaE consumes the public Ploos-AS/amiga-runtime contract instead of impleme
 
 ## Profile mapping
 
-| EduAmigaE lane | amiga-runtime profile |
-|---|---|
-| e33-a500 | a500 |
-| evo-a500 | a500 |
-| evo-a1200 | a1200-020 |
+The E33 fundamentals currently qualify against two runtime profiles:
 
-The runtime entry point is `amiga-runtime test PROGRAM --profile PROFILE`.
+| EduAmigaE use | amiga-runtime profile |
+|---|---|
+| 68000 / OCS baseline | `amiga-ocs-68000-1m` |
+| 68020 cross-check | `a1200-020` |
+
+The runtime entry point used by the student CLI is:
+
+```sh
+amiga-runtime test-hunk PROGRAM --profile PROFILE
+```
+
+The declared profiles live in each qualification case. Milestones select cases; they do not silently replace the profiles declared by those cases.
 
 ## Evidence levels
 
-EduAmigaE adopts Q0 through Q5 from amiga-runtime. In particular, AROS Q2/Q3 evidence must never be relabelled as classic AmigaOS Q4 evidence.
+EduAmigaE adopts the evidence model from amiga-runtime. A successful emulator launch alone is not proof that the expected E program ran.
 
-Classic Q4 may use separately provisioned legal Kickstart and AmigaOS assets. Those assets remain outside both repositories and redistributable images.
+Classic AmigaOS qualification may use separately provisioned legal Kickstart and AmigaOS assets where required. Those assets remain outside both repositories and redistributable student images.
 
-## Current boundary
+## Machine-readable guest output
 
-amiga-runtime already defines the input/evidence mounts, runtime command and machine profiles. The EduAmigaE adapter therefore binds to those interfaces now.
+For `eduamigae test`, a runtime invocation receives a fresh evidence directory through `AMIGA_RUNTIME_EVIDENCE`. EduAmigaE requires `result.json` from that directory.
 
-Until a stable captured-output evidence path is exposed to the consumer, the adapter returns SKIP unless `AMIGA_RUNTIME_STDOUT` points to verified guest output. A successful emulator launch alone is not proof that the expected E program ran.
+A successful result must expose captured guest stdout through:
 
-The next integration task is to consume a stable machine-readable guest-output/evidence field from amiga-runtime.
+```json
+{
+  "status": "PASS",
+  "guest_output": {
+    "stdout": "guest-console.txt"
+  }
+}
+```
+
+The stdout value is treated as a path relative to the evidence directory. `scripts/evidence-stdout.py` rejects absolute paths and traversal outside that directory, requires the referenced file to exist, and only accepts PASS evidence. The captured file is then compared with the case's exact expected stdout by `scripts/verify-case.py`.
+
+This makes the qualification chain explicit:
+
+```text
+E-VO source
+  -> compiled Amiga Hunk
+  -> amiga-runtime test-hunk
+  -> result.json PASS
+  -> guest_output.stdout
+  -> exact case-output verification
+```
+
+## Integration boundary
+
+amiga-runtime owns emulator/runtime execution, machine profiles and runtime evidence generation. EduAmigaE owns course cases, expected output, milestone selection and validation of the evidence it consumes.
+
+The two projects therefore remain independently testable: EduAmigaE does not need emulator-specific control code, and amiga-runtime does not need knowledge of EduAmigaE lessons.
