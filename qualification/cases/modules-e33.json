@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "modules-e33",
+  "source": "examples/09-modules/modules.e",
+  "output": "modules",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "module import ok\n",
+    "exit": "success"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
