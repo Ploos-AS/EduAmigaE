@@ -1,0 +1,26 @@
+name: Qualification
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  m1:
+    # E-VO is intentionally not downloaded or bundled by this workflow.
+    # Run only on an explicitly provisioned qualification runner.
+    runs-on: [self-hosted, eduamigae, amiga-runtime]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require provisioned E-VO
+        run: test -f "${EVO_HOME:?EVO_HOME must be configured}/E-VO.guide"
+      - name: Qualify M1 hello path
+        run: sh scripts/qualify-m1.sh
+      - name: Upload qualification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eduamigae-m1-evidence
+          path: build/qualification/
+          if-no-files-found: error
