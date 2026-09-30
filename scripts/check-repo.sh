@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-python3 -m py_compile scripts/verify-case.py scripts/case-info.py
+python3 -m py_compile scripts/verify-case.py scripts/case-info.py scripts/evidence-stdout.py
 
 for f in qualification/*.json qualification/cases/*.json qualification/jobs/*.json amiga-runtime.json book/book.json; do
   [ -f "$f" ] || continue
@@ -38,6 +38,16 @@ cat >"$tmp/unsafe.json" <<'EOF'
 EOF
 if python3 scripts/case-info.py "$tmp/unsafe.json" >/dev/null 2>&1; then
   echo "unsafe case id unexpectedly accepted" >&2
+  exit 1
+fi
+
+mkdir -p "$tmp/evidence"
+printf 'ok\n' >"$tmp/evidence/stdout.txt"
+printf '{"status":"PASS","guest_output":{"stdout":"stdout.txt"}}\n' >"$tmp/evidence/result.json"
+python3 scripts/evidence-stdout.py "$tmp/evidence/result.json" "$tmp/evidence" >/dev/null
+printf '{"status":"PASS","guest_output":{"stdout":"../escape.txt"}}\n' >"$tmp/evidence/bad.json"
+if python3 scripts/evidence-stdout.py "$tmp/evidence/bad.json" "$tmp/evidence" >/dev/null 2>&1; then
+  echo "unsafe evidence path unexpectedly accepted" >&2
   exit 1
 fi
 
