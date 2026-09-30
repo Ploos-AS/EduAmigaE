@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "new-end-e33",
+  "source": "examples/12-dynamic-memory/new-end.e",
+  "output": "new-end",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "allocated=12345\n",
+    "exit": 0
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
