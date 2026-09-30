@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "object-pointer-e33",
+  "source": "examples/13-object-pointers/object-pointer.e",
+  "output": "object-pointer",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "point=10,20\n",
+    "exit": 0
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
