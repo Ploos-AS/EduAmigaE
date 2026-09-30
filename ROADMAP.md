@@ -18,14 +18,18 @@ M0 exit criterion: the project can move into implementation without changing its
 
 Create and qualify the reproducible development environment.
 
-- select and pin the Amiga E toolchain
-- document licensing and redistribution constraints
-- create the student OCI/bootstrap workflow
-- provide a minimal hello-world build
-- document native alternatives
-- validate setup from a clean environment
+- [x] select and pin the Amiga E toolchain
+- [x] document licensing and redistribution constraints
+- [x] create the student OCI/bootstrap workflow
+- [x] provide a minimal hello-world source/build contract
+- [x] document native/alternative execution lanes
+- [x] provide manifest-driven build/runtime qualification tooling
+- [x] provide a dedicated M1 qualification workflow and evidence artifact
+- [ ] validate the student OCI from a clean environment
+- [ ] record an end-to-end E-VO 3.9.4 hello-world compile PASS
+- [ ] record amiga-runtime PASS for every hello-e33 profile
 
-Exit: a student can obtain the public materials and build the first program without private Ploos infrastructure.
+Exit: a student can obtain the public materials and build the first program without private Ploos infrastructure. See `docs/m1-exit.md` for the evidence contract.
 
 ## M2 — E fundamentals
 
