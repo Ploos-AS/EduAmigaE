@@ -1,5 +1,7 @@
 {
   "schema": 1,
   "milestone": "M3",
-  "cases": []
+  "cases": [
+    "pointers-e33.json"
+  ]
 }
