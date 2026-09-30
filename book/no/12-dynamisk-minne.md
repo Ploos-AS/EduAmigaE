@@ -39,6 +39,20 @@ For hvert dynamisk minneområde bør du kunne svare på tre spørsmål:
 
 Et enkelt kursmønster er: **én vellykket `NEW` skal ha en tydelig tilsvarende `END`**. Senere møter vi kontrollflyt og systemressurser som krever mer avansert cleanup.
 
+## Dynamiske arrays
+
+`NEW` kan også allokere flere elementer. Eksemplet `examples/12-dynamic-memory/dynamic-array.e` bruker:
+
+```text
+NEW arr[5]
+...
+END arr[5]
+```
+
+Mellom disse punktene kan `arr` indekseres som `arr[0]` til `arr[4]`. Størrelsen er en del av både allokeringen og frigjøringen; vi holder derfor antallet synlig og identisk i dette introduksjonseksemplet.
+
+Qualification-casen `dynamic-array-e33` forventer verdiene 0, 10, 20, 30 og 40.
+
 ## Kjør det
 
 Bygg og test eksemplet. Normal output er `allocated=12345`.
