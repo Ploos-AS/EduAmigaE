@@ -2,6 +2,14 @@
 
 Status: M0 research decision.
 
+## Pinned baseline
+
+For M1 qualification, the canonical stable compiler is **E-VO 3.9.4**.
+
+Development/nightly builds are not course baselines. A newer stable release may be adopted deliberately after qualification, but examples must not silently depend on it.
+
+The original **Amiga E 3.3a / EC** remains the language-compatibility reference for E33-labelled examples.
+
 ## Goals
 
 The teaching toolchain should:
@@ -14,74 +22,40 @@ The teaching toolchain should:
 - separate freely redistributable components from components students must supply themselves
 - allow examples to be qualified automatically where practical
 
-## Primary candidate: E-VO
+## Primary compiler: E-VO
 
-E-VO is the preferred compiler candidate for the course.
+E-VO is the preferred compiler for the course. It is derived from the original Amiga E compiler, remains actively maintained, adds bug fixes and extensions, and retains the classic Amiga/m68k focus.
 
-Reasons:
-
-- it is derived from the original Amiga E compiler
-- it remains actively maintained
-- it adds bug fixes and useful extensions
-- it retains classic Amiga/m68k focus
-- 68000 remains a supported target
-- source is available
-
-The course should teach the portable/core Amiga E language first. E-VO-specific extensions must be identified explicitly rather than silently becoming prerequisites for beginner examples.
+The course teaches portable/core Amiga E first. E-VO-specific extensions must be identified explicitly rather than silently becoming prerequisites for beginner examples.
 
 ## Reference compiler: original EC
 
-The original Amiga E compiler remains the semantic and historical reference.
+The original Amiga E compiler remains the semantic and historical reference. EduAmigaE preserves an E 3.3a compatibility lane where practical so that historical source remains useful to students.
 
-EduAmigaE should preserve a compatibility lane for original E 3.3a where practical. This gives the course a stable baseline and makes old source code materially useful to students.
-
-We should not assume that every component of the historical Amiga E distribution has identical redistribution terms. Compiler, modules, examples and support files must be audited separately before packaging.
+The original compiler is described by its author as open source/GPL. Historical archives, modules, examples and support files are nevertheless audited component-by-component before redistribution.
 
 ## Secondary compiler: ECX
 
-ECX is useful as an advanced compatibility target but is not proposed as the beginner baseline.
-
-Important differences include:
-
-- classic 68k target requires 68020+FPU
-- it also targets newer Amiga-family systems
-- its redistribution terms include restrictions that require careful treatment
-
-ECX therefore belongs in a later portability/compiler-comparison section rather than defining the core course environment.
+ECX is useful as an advanced compatibility target but is not the beginner baseline. Its CPU requirements and redistribution terms make it unsuitable for defining the core environment.
 
 ## Experimental validation: ecomp
 
-The modern browser-oriented ecomp implementation is interesting as an additional validation path because it targets E 3.3a semantics and can generate classic Amiga executables.
+The modern ecomp implementation targets E 3.3a semantics and is validated against the historical compiler. It may become an additional validation path for differential tests, browser exercises and CI, but is not the canonical course compiler.
 
-It is not currently the canonical compiler for EduAmigaE. It may later be useful for:
+## Redistribution policy
 
-- differential tests
-- browser exercises
-- CI validation
-- checking core-language compatibility
+Do not assume that "source available", "open source", "public domain" and "freely redistributable in a Ploos image" are equivalent.
 
-## Student environment
+E-VO's published terms permit broad use but include a restriction against selling E-VO or related support programs for profit. Until the exact student-image distribution model has been reviewed against those terms, the OCI must not simply embed the complete E-VO distribution.
 
-The student environment should have two layers.
+Preferred design:
 
-### Host layer
+1. the public OCI contains Ploos-owned and clearly redistributable host tooling;
+2. a bootstrap/import step obtains or accepts the Amiga E toolchain separately where required;
+3. hashes and expected versions make the resulting environment reproducible;
+4. Kickstart and Workbench are always user-supplied unless an explicitly redistributable alternative is selected.
 
-A reproducible public OCI image contains tools that are legally redistributable and useful on the student's modern host.
-
-Its responsibilities may include:
-
-- course helper scripts
-- archive handling
-- source validation
-- test orchestration
-- emulator integration
-- publishing/exercise utilities
-
-### Amiga layer
-
-The actual classic-Amiga compiler environment runs in an emulator/runtime or on real hardware.
-
-Proprietary Kickstart ROMs and Workbench material must never be bundled merely for convenience. Students provide legally obtained copies when required.
+This separation also keeps the course usable on real Amiga hardware.
 
 ## Compatibility policy
 
@@ -91,26 +65,46 @@ Examples are classified explicitly:
 - **EVO** — intentionally uses E-VO functionality
 - **ECX** — ECX-specific or portability exercise
 
-Beginner material should default to E33-compatible source unless there is a clear educational reason to use an E-VO extension.
+Beginner material defaults to E33-compatible source unless there is a clear educational reason to use an E-VO extension.
 
 ## CPU baseline
 
-Core lessons should prefer code that can run on a 68000-class Amiga where the compiler/runtime permits it.
+Core lessons prefer code that can run on a 68000-class Amiga where the compiler/runtime permits it.
 
 CPU-specific optimization is taught later and must be labelled.
 
-This keeps the relationship between E and the original Amiga hardware visible and prevents an accidental 68020+FPU requirement from entering the beginner course.
+## M1 qualification matrix
+
+| Component | Baseline | Role | Bundle now? |
+|---|---|---|---|
+| E-VO | 3.9.4 | canonical compiler | No, pending redistribution review |
+| EC | 3.3a | compatibility reference | Pending component audit |
+| ecomp | current qualified revision | optional differential/CI compiler | Pending integration review |
+| ECX | optional | advanced compatibility | No |
+| Kickstart | user-owned | runtime ROM | Never bundle by assumption |
+| Workbench/AmigaOS | user-owned | runtime environment | Never bundle by assumption |
+| Ploos student tooling | pinned by repo | orchestration | Yes |
+
+## First smoke program
+
+The first qualification source intentionally uses only core E syntax:
+
+```e
+PROC main()
+  WriteF('Hello from EduAmigaE!\n')
+ENDPROC
+```
+
+It is classified **E33** and becomes the first compile/run test for both the historical compatibility lane and E-VO.
 
 ## Next qualification work
 
-Before M1 is declared complete:
-
-1. pin an E-VO release
-2. inventory every required module/support file
-3. record the license and redistribution status of each component
-4. build a minimal E33-compatible program
-5. run it on the course runtime
-6. repeat with E-VO
-7. define expected compiler output and test evidence
+1. inventory E-VO 3.9.4 compiler/modules/support files
+2. record provenance and redistribution status for each required component
+3. add the E33 hello-world source to the repository
+4. define expected compiler/run evidence
+5. qualify it under E-VO 3.9.4
+6. qualify the E33 lane
+7. connect qualification to amiga-runtime where appropriate
 8. build the public student OCI/bootstrap path
 9. verify the complete workflow from a clean machine
