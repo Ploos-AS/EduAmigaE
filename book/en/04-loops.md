@@ -28,6 +28,23 @@ eduamigae run build/loops
 
 Change the end value. Then use `i` in an expression inside the loop.
 
+## WHILE when the condition controls repetition
+
+When repetition is controlled by a condition rather than a known range, use `WHILE`:
+
+```e
+PROC main()
+  DEF value
+  value := 1
+  WHILE value <= 3
+    WriteF('while=\d\n', value)
+    value := value + 1
+  ENDWHILE
+ENDPROC
+```
+
+Source: `examples/03-control-flow/while.e`. Remember to change something that affects the condition; otherwise a `WHILE` loop can become infinite.
+
 ## Think
 
 How many times does the body run from 1 through 5? What is the final value actually used?
