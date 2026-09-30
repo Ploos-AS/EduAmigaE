@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "control-flow-e33",
+  "source": "examples/03-control-flow/control-flow.e",
+  "output": "control-flow",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "large\n",
+    "exit": "success"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
