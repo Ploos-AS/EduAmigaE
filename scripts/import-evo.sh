@@ -15,10 +15,14 @@ if [ -f "$src" ]; then
   actual_sha=$(sha256sum "$src" | awk '{print $1}')
   [ "$actual_size" = "$expected_size" ] || { echo "E-VO archive size mismatch" >&2; exit 2; }
   [ "$actual_sha" = "$expected_sha" ] || { echo "E-VO archive SHA-256 mismatch" >&2; exit 2; }
-  extractor=""
-  command -v lha >/dev/null 2>&1 && extractor=lha
-  [ -n "$extractor" ] || command -v lhasa >/dev/null 2>&1 && extractor=lhasa
-  [ -n "$extractor" ] || { echo "lha or lhasa is required to import evo394.lha" >&2; exit 69; }
+  if command -v lha >/dev/null 2>&1; then
+    extractor=lha
+  elif command -v lhasa >/dev/null 2>&1; then
+    extractor=lhasa
+  else
+    echo "lha or lhasa is required to import evo394.lha" >&2
+    exit 69
+  fi
   archive=$(cd "$(dirname "$src")" && pwd)/$(basename "$src")
   tmp=$(mktemp -d)
   (cd "$tmp" && "$extractor" x "$archive" >/dev/null)
