@@ -1,0 +1,43 @@
+#!/bin/sh
+set -eu
+
+cmd=${1:-help}
+[ "$#" -eq 0 ] || shift
+
+case "$cmd" in
+  doctor)
+    exec eduamigae-self-test "$@"
+    ;;
+  import-evo)
+    src=${1:?usage: eduamigae import-evo evo394.lha [DEST]}
+    dst=${2:-${EVO_HOME:-/toolchains/evo/3.9.4}}
+    exec eduamigae-import-evo "$src" "$dst"
+    ;;
+  build)
+    src=${1:?usage: eduamigae build SOURCE [OUTPUT]}
+    base=$(basename "$src")
+    stem=${base%.*}
+    out=${2:-build/$stem}
+    exec eduamigae-compile "$src" "$out"
+    ;;
+  help|-h|--help)
+    cat <<'EOF'
+EduAmigaE student CLI
+
+  eduamigae doctor
+      Verify the open student environment and report E-VO provisioning.
+
+  eduamigae import-evo evo394.lha [DEST]
+      Verify the official E-VO 3.9.4 archive and import it.
+
+  eduamigae build SOURCE [OUTPUT]
+      Compile an Amiga E source file through E-VO 3.9.4 + vamos.
+
+E-VO, Kickstart and AmigaOS are not bundled.
+EOF
+    ;;
+  *)
+    echo "unknown command: $cmd" >&2
+    exit 64
+    ;;
+esac
