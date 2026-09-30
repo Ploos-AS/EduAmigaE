@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "expressions-e33",
+  "source": "examples/02-expressions/expressions.e",
+  "output": "expressions",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "sum=13 product=42\n",
+    "exit": "success"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
