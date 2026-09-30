@@ -29,6 +29,26 @@ case "$cmd" in
     }
     exec amiga-runtime test-hunk "$program" --profile "$profile"
     ;;
+  qualify)
+    casefile=${1:?usage: eduamigae qualify CASE}
+    test -f "$casefile" || { echo "case not found: $casefile" >&2; exit 66; }
+    info=$(python3 scripts/case-info.py "$casefile")
+    eval "$info"
+    test -f "$SOURCE" || { echo "case source not found: $SOURCE" >&2; exit 66; }
+    mkdir -p build/qualification
+    program="build/qualification/$OUTPUT"
+    "$0" build "$SOURCE" "$program"
+    oldifs=$IFS
+    IFS=,
+    for profile in $PROFILES; do
+      IFS=$oldifs
+      echo "==> $ID [$COMPATIBILITY] profile=$profile"
+      "$0" test "$program" "$casefile" "$profile"
+      IFS=,
+    done
+    IFS=$oldifs
+    echo "PASS $ID"
+    ;;
   test)
     program=${1:?usage: eduamigae test PROGRAM [CASE] [PROFILE]}
     casefile=${2:-qualification/cases/hello-e33.json}
@@ -80,6 +100,9 @@ EduAmigaE student CLI
 
   eduamigae test PROGRAM [CASE] [PROFILE]
       Require runtime PASS evidence and verify guest stdout against a case.
+
+  eduamigae qualify CASE
+      Build and test a qualification case on every profile declared by it.
 
 E-VO, Kickstart and AmigaOS are not bundled.
 EOF
