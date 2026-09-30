@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "loops-e33",
+  "source": "examples/04-loops/loops.e",
+  "output": "loops",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "1\n2\n3\n4\n5\n",
+    "exit": "success"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
