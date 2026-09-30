@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "linked-list-e33",
+  "source": "examples/14-linked-list/linked-list.e",
+  "output": "linked-list",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "node=10\nnode=20\n",
+    "exit": 0
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
