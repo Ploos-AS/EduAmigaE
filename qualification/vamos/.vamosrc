@@ -1,0 +1,14 @@
+[vamos]
+# EduAmigaE minimal E-VO compile environment.
+# exec.library and dos.library are provided by vamos itself.
+
+[exec.library]
+mode=vamos
+version=40
+
+[dos.library]
+mode=vamos
+version=40
+
+[*.library]
+mode=off
