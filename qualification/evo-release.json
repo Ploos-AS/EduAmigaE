@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "product": "E-VO",
+  "version": "3.9.4",
+  "upstream": {
+    "repository": "dmcoles/EVO",
+    "tag": "V3.9.4",
+    "commit": "708a0c5d0cfdb340545025701aeaa52a267d8080"
+  },
+  "release_asset": {
+    "name": "evo394.lha",
+    "size": 703734,
+    "sha256": "a7ebb0b8de6261d63e9416f9a385ee1973a67a84228a1370b4ad6dcd4fe21230"
+  },
+  "policy": {
+    "bundled_in_student_oci": false,
+    "source": "user-supplied or independently obtained official release asset"
+  }
+}
