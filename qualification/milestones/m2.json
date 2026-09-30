@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "milestone": "M2",
+  "cases": [
+    "hello-e33.json",
+    "values-e33.json",
+    "expressions-e33.json",
+    "control-flow-e33.json",
+    "select-e33.json",
+    "loops-e33.json",
+    "while-e33.json",
+    "procedures-e33.json",
+    "strings-e33.json",
+    "arrays-e33.json",
+    "objects-e33.json",
+    "modules-e33.json"
+  ]
+}
