@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "pointer-write-e33",
+  "source": "examples/11-pointers/pointer-write.e",
+  "output": "pointer-write",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "value=99 pointer=99\n",
+    "exit": 0
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
