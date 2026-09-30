@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "EduAmigaE",
+  "languages": {
+    "no": [
+      "no/00-kom-i-gang.md",
+      "no/01-verdier-og-variabler.md"
+    ],
+    "en": [
+      "en/00-getting-started.md",
+      "en/01-values-and-variables.md"
+    ]
+  }
+}
