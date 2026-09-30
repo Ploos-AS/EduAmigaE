@@ -1,0 +1,5 @@
+# Host paths for the open vamos lane.
+# Copy to a local untracked file and adjust paths.
+VAMOS_CONFIG=/path/to/.vamosrc
+VAMOS_SYSTEM=/path/to/amiga-system
+EVO_HOME=.toolchain/evo/3.9.4
