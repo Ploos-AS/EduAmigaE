@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "while-e33",
+  "source": "examples/03-control-flow/while.e",
+  "output": "while",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "while=1\nwhile=2\nwhile=3\n",
+    "exit": "success"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
