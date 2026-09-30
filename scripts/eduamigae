@@ -20,6 +20,48 @@ case "$cmd" in
     out=${2:-build/$stem}
     exec eduamigae-compile "$src" "$out"
     ;;
+  run)
+    program=${1:?usage: eduamigae run PROGRAM [PROFILE]}
+    profile=${2:-amiga-ocs-68000-1m}
+    command -v amiga-runtime >/dev/null 2>&1 || {
+      echo "amiga-runtime not found; run requires the runtime environment" >&2
+      exit 69
+    }
+    exec amiga-runtime test-hunk "$program" --profile "$profile"
+    ;;
+  test)
+    program=${1:?usage: eduamigae test PROGRAM [CASE] [PROFILE]}
+    casefile=${2:-qualification/cases/hello-e33.json}
+    profile=${3:-amiga-ocs-68000-1m}
+    command -v amiga-runtime >/dev/null 2>&1 || {
+      echo "amiga-runtime not found; test requires the runtime environment" >&2
+      exit 69
+    }
+    test -f "$casefile" || { echo "case not found: $casefile" >&2; exit 66; }
+    evidence=$(mktemp -d)
+    trap 'rm -rf "$evidence"' EXIT HUP INT TERM
+    AMIGA_RUNTIME_EVIDENCE="$evidence" amiga-runtime test-hunk "$program" --profile "$profile"
+    result="$evidence/result.json"
+    test -f "$result" || { echo "runtime produced no result.json" >&2; exit 1; }
+    python3 - "$result" <<'PY'
+import json, sys
+d=json.load(open(sys.argv[1], encoding="utf-8"))
+if d.get("status") != "PASS":
+    raise SystemExit("runtime qualification did not PASS")
+p=d.get("guest_output",{}).get("stdout")
+if not p:
+    raise SystemExit("runtime result has no guest stdout evidence")
+print(p)
+PY
+    stdout_rel=$(python3 - "$result" <<'PY'
+import json, sys
+d=json.load(open(sys.argv[1], encoding="utf-8"))
+print(d["guest_output"]["stdout"])
+PY
+)
+    stdout="$evidence/$stdout_rel"
+    python3 scripts/verify-case.py "$casefile" "$stdout"
+    ;;
   help|-h|--help)
     cat <<'EOF'
 EduAmigaE student CLI
@@ -32,6 +74,12 @@ EduAmigaE student CLI
 
   eduamigae build SOURCE [OUTPUT]
       Compile an Amiga E source file through E-VO 3.9.4 + vamos.
+
+  eduamigae run PROGRAM [PROFILE]
+      Run a generated Amiga Hunk through amiga-runtime.
+
+  eduamigae test PROGRAM [CASE] [PROFILE]
+      Require runtime PASS evidence and verify guest stdout against a case.
 
 E-VO, Kickstart and AmigaOS are not bundled.
 EOF
