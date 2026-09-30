@@ -14,9 +14,13 @@ command -v amiga-runtime >/dev/null 2>&1 || {
 "$CLI" doctor
 mkdir -p build/qualification
 report=build/qualification/m2-cases.json
+manifest=qualification/milestones/m2.json
+cases_tmp=$(mktemp -d)
+trap 'rm -rf "$cases_tmp"' EXIT HUP INT TERM
+python3 scripts/materialize-milestone.py "$manifest" "$cases_tmp" >/dev/null
 
 set +e
-"$CLI" qualify-all qualification/cases "$report"
+"$CLI" qualify-all "$cases_tmp" "$report"
 rc=$?
 set -e
 [ "$rc" -eq 0 ] || {
@@ -32,10 +36,13 @@ report=json.loads(report_path.read_text(encoding="utf-8"))
 if report.get("fail") != 0 or report.get("skip") != 0:
     raise SystemExit("M2 requires zero FAIL and zero SKIP")
 if report.get("pass") != report.get("total") or not report.get("total"):
-    raise SystemExit("M2 requires every discovered case to PASS")
+    raise SystemExit("M2 requires every locked case to PASS")
 
+manifest_path=pathlib.Path("qualification/milestones/m2.json")
+manifest=json.loads(manifest_path.read_text(encoding="utf-8"))
 cases=[]
-for p in sorted(pathlib.Path("qualification/cases").glob("*.json")):
+for name in manifest["cases"]:
+    p=pathlib.Path("qualification/cases") / name
     d=json.loads(p.read_text(encoding="utf-8"))
     cases.append({
         "id": d["id"],
@@ -50,6 +57,7 @@ out={
     "milestone":"M2",
     "status":"PASS",
     "case_count":len(cases),
+    "manifest_sha256":hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
     "report_sha256":hashlib.sha256(report_path.read_bytes()).hexdigest(),
     "cases":cases,
 }
