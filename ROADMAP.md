@@ -9,8 +9,8 @@
 - [x] Establish CC BY 4.0 for original course material
 - [x] Define web, EPUB, Kindle and PDF publication targets
 - [x] Define student OCI as a project requirement
-- [ ] Complete toolchain and redistribution research
-- [ ] Establish repository skeleton and automated checks
+- [x] Complete toolchain and redistribution research
+- [x] Establish repository skeleton and automated checks
 
 M0 exit criterion: the project can move into implementation without changing its educational or distribution model.
 
