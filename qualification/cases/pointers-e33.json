@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "pointers-e33",
+  "source": "examples/11-pointers/pointers.e",
+  "output": "pointers",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "value=42 pointer=42\n",
+    "exit": 0
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
