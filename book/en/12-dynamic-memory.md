@@ -39,6 +39,20 @@ For every dynamically allocated region, you should be able to answer three quest
 
 A useful introductory rule is: **one successful `NEW` should have one clearly corresponding `END`**. Later we will encounter control flow and system resources that require more advanced cleanup.
 
+## Dynamic arrays
+
+`NEW` can also allocate multiple elements. The example `examples/12-dynamic-memory/dynamic-array.e` uses:
+
+```text
+NEW arr[5]
+...
+END arr[5]
+```
+
+Between those points, `arr` can be indexed as `arr[0]` through `arr[4]`. The size is part of both allocation and release, so this introductory example keeps the count visible and identical in both places.
+
+The `dynamic-array-e33` qualification case expects the values 0, 10, 20, 30 and 40.
+
 ## Run it
 
 Build and test the example. Normal output is `allocated=12345`.
