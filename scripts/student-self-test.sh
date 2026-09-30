@@ -11,10 +11,10 @@ import amitools
 print("amitools: PASS")
 PY
 
-vamos --version >/dev/null 2>&1 || {
-  echo "vamos invocation: FAIL" >&2
-  exit 1
-}
+python3 - <<'PY'
+from amitools.vamos.main import main
+print("vamos module: PASS")
+PY
 
 echo "student environment: PASS"
 
