@@ -28,6 +28,23 @@ eduamigae run build/loops
 
 Endre sluttverdien. Prøv deretter å bruke `i` i et uttrykk inne i løkken.
 
+## WHILE når betingelsen styrer
+
+Når vi ikke først og fremst har et fast område, kan vi gjenta så lenge en betingelse er sann:
+
+```e
+PROC main()
+  DEF value
+  value := 1
+  WHILE value <= 3
+    WriteF('while=\d\n', value)
+    value := value + 1
+  ENDWHILE
+ENDPROC
+```
+
+Kilde: `examples/03-control-flow/while.e`. Husk å endre noe som påvirker betingelsen; ellers kan en `WHILE`-løkke bli uendelig.
+
 ## Tenk
 
 Hvor mange ganger kjøres kroppen fra 1 til 5? Hva er siste verdi som faktisk brukes?
