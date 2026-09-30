@@ -29,6 +29,52 @@ case "$cmd" in
     }
     exec amiga-runtime test-hunk "$program" --profile "$profile"
     ;;
+  qualify-all)
+    cases_dir=${1:-qualification/cases}
+    report=${2:-build/qualification/report.json}
+    test -d "$cases_dir" || { echo "cases directory not found: $cases_dir" >&2; exit 66; }
+    mkdir -p "$(dirname "$report")"
+    tmp=$(mktemp -d)
+    trap 'rm -rf "$tmp"' EXIT HUP INT TERM
+    total=0; pass=0; fail=0; skip=0
+    : >"$tmp/results"
+    for casefile in "$cases_dir"/*.json; do
+      [ -f "$casefile" ] || continue
+      total=$((total + 1))
+      id=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["id"])' "$casefile")
+      if [ ! -d "${EVO_HOME:-}" ] || [ ! -f "${EVO_HOME:-}/E-VO.guide" ]; then
+        echo "SKIP $id: E-VO 3.9.4 not provisioned"
+        skip=$((skip + 1))
+        printf '%s\tSKIP\t%s\n' "$id" "E-VO 3.9.4 not provisioned" >>"$tmp/results"
+        continue
+      fi
+      set +e
+      "$0" qualify "$casefile"
+      rc=$?
+      set -e
+      if [ "$rc" -eq 0 ]; then
+        pass=$((pass + 1))
+        printf '%s\tPASS\t\n' "$id" >>"$tmp/results"
+      else
+        fail=$((fail + 1))
+        printf '%s\tFAIL\texit %s\n' "$id" "$rc" >>"$tmp/results"
+      fi
+    done
+    python3 - "$tmp/results" "$report" "$total" "$pass" "$fail" "$skip" <<'PY'
+import json, pathlib, sys
+rows=[]
+for line in pathlib.Path(sys.argv[1]).read_text().splitlines():
+    ident,status,reason=line.split("\t",2)
+    item={"id":ident,"status":status}
+    if reason: item["reason"]=reason
+    rows.append(item)
+out={"schema":1,"total":int(sys.argv[3]),"pass":int(sys.argv[4]),"fail":int(sys.argv[5]),"skip":int(sys.argv[6]),"results":rows}
+pathlib.Path(sys.argv[2]).write_text(json.dumps(out,indent=2)+"\n")
+print(json.dumps(out,separators=(",",":")))
+PY
+    [ "$fail" -eq 0 ] || exit 1
+    [ "$skip" -eq 0 ] || exit 2
+    ;;
   qualify)
     casefile=${1:?usage: eduamigae qualify CASE}
     test -f "$casefile" || { echo "case not found: $casefile" >&2; exit 66; }
@@ -103,6 +149,9 @@ EduAmigaE student CLI
 
   eduamigae qualify CASE
       Build and test a qualification case on every profile declared by it.
+
+  eduamigae qualify-all [CASES_DIR] [REPORT]
+      Run all cases and write a JSON summary. Exit 1 on FAIL, 2 on SKIP.
 
 E-VO, Kickstart and AmigaOS are not bundled.
 EOF
