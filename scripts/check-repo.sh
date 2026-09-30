@@ -19,6 +19,7 @@ printf '%s\n' "$help" | grep -q 'eduamigae build'
 printf '%s\n' "$help" | grep -q 'eduamigae run'
 printf '%s\n' "$help" | grep -q 'eduamigae test'
 printf '%s\n' "$help" | grep -q 'eduamigae qualify'
+printf '%s\n' "$help" | grep -q 'eduamigae qualify-all'
 
 caseinfo=$(python3 scripts/case-info.py qualification/cases/hello-e33.json)
 printf '%s\n' "$caseinfo" | grep -q '^ID=hello-e33
