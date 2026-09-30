@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "dynamic-array-e33",
+  "source": "examples/12-dynamic-memory/dynamic-array.e",
+  "output": "dynamic-array",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "array=0,10,20,30,40\n",
+    "exit": 0
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
