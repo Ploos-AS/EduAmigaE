@@ -16,6 +16,8 @@ help=$(sh scripts/eduamigae help)
 printf '%s\n' "$help" | grep -q 'eduamigae doctor'
 printf '%s\n' "$help" | grep -q 'eduamigae import-evo'
 printf '%s\n' "$help" | grep -q 'eduamigae build'
+printf '%s\n' "$help" | grep -q 'eduamigae run'
+printf '%s\n' "$help" | grep -q 'eduamigae test'
 
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
