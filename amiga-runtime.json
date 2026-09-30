@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "name": "EduAmigaE",
+  "qualification": {
+    "cases": [
+      "qualification/cases/hello-e33.json"
+    ],
+    "required_guest_markers": [
+      "Hello from EduAmigaE!"
+    ]
+  },
+  "profiles": {
+    "evo-a500": "a500",
+    "evo-a1200": "a1200-020"
+  },
+  "policy": {
+    "aros_is_not_amigaos": true,
+    "proprietary_assets_in_repo": false
+  }
+}
