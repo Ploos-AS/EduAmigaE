@@ -88,4 +88,23 @@ if python3 scripts/materialize-milestone.py "$tmp/bad-milestone.json" "$tmp/bad-
   exit 1
 fi
 
+python3 - <<'PY'
+import pathlib, re
+lock={}
+for line in pathlib.Path("student/toolchain.lock").read_text().splitlines():
+    if line and not line.startswith("#"):
+        k,v=line.split("=",1); lock[k]=v
+docker=pathlib.Path("student/Dockerfile").read_text()
+checks={
+    "BASE_IMAGE": r"^ARG BASE_IMAGE=([^\\n]+)$",
+    "AMITOOLS_VERSION": r"^ARG AMITOOLS_VERSION=([^\\n]+)$",
+}
+for key,pattern in checks.items():
+    m=re.search(pattern,docker,re.M)
+    if not m or m.group(1) != lock.get(key):
+        raise SystemExit(f"student lock mismatch for {key}")
+if f'amitools[vamos]==${{AMITOOLS_VERSION}}' not in docker:
+    raise SystemExit("Dockerfile must install amitools through AMITOOLS_VERSION")
+PY
+
 echo "repository checks: PASS"
