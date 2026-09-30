@@ -18,8 +18,10 @@ for cmd in doctor import-evo build run test qualify qualify-all; do
 done
 
 caseinfo=$(python3 scripts/case-info.py qualification/cases/hello-e33.json)
-printf '%s\n' "$caseinfo" | grep -q '^ID=hello-e33$'
-printf '%s\n' "$caseinfo" | grep -q '^OUTPUT=hello$'
+printf '%s\n' "$caseinfo" | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["id"]=="hello-e33"; assert d["output"]=="hello"'
+[ "$(python3 scripts/case-info.py qualification/cases/hello-e33.json --field id)" = "hello-e33" ]
+[ "$(python3 scripts/case-info.py qualification/cases/hello-e33.json --field output)" = "hello" ]
+! grep -q 'eval ' scripts/eduamigae
 
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT HUP INT TERM
