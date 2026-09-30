@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "compiler": "E-VO",
+  "version": "3.9.4",
+  "execution": "amiga-guest",
+  "command": {
+    "program": "EVO",
+    "arguments": [
+      "{source}",
+      "NOPROGRESS",
+      "IGNORECACHE"
+    ]
+  },
+  "environment": {
+    "path_requires": [
+      "BIN"
+    ],
+    "assigns": {
+      "EMODULES:": "Modules"
+    }
+  },
+  "output": {
+    "name": "source-basename",
+    "format": "Amiga Hunk"
+  },
+  "policy": {
+    "optimisation": false,
+    "development_builds": false
+  }
+}
