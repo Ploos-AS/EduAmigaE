@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  repository:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Repository checks
+        run: sh scripts/check-repo.sh
+
+  student-oci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build student image
+        run: docker build -f student/Dockerfile -t eduamigae-student:test .
+      - name: Self-test open environment
+        run: docker run --rm eduamigae-student:test -c eduamigae-self-test
