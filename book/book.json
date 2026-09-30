@@ -17,7 +17,8 @@
       "no/11-adresser-og-pekere.md",
       "no/12-dynamisk-minne.md",
       "no/13-pekere-til-object.md",
-      "no/14-lenkede-lister.md"
+      "no/14-lenkede-lister.md",
+      "no/15-eierskap-og-liste-cleanup.md"
     ],
     "en": [
       "en/00-getting-started.md",
@@ -34,7 +35,8 @@
       "en/11-addresses-and-pointers.md",
       "en/12-dynamic-memory.md",
       "en/13-pointers-to-object.md",
-      "en/14-linked-lists.md"
+      "en/14-linked-lists.md",
+      "en/15-ownership-and-list-cleanup.md"
     ]
   }
 }
