@@ -26,6 +26,7 @@ jobs:
           if-no-files-found: error
 
   m2:
+    needs: m1
     # Full fundamentals qualification. The runner supplies E-VO and
     # amiga-runtime; neither proprietary AmigaOS nor Kickstart is stored here.
     runs-on: [self-hosted, eduamigae, amiga-runtime]
