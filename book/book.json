@@ -6,13 +6,17 @@
       "no/00-kom-i-gang.md",
       "no/01-verdier-og-variabler.md",
       "no/02-uttrykk-og-operatorer.md",
-      "no/03-valg-med-if.md"
+      "no/03-valg-med-if.md",
+      "no/04-lokker.md",
+      "no/05-prosedyrer.md"
     ],
     "en": [
       "en/00-getting-started.md",
       "en/01-values-and-variables.md",
       "en/02-expressions-and-operators.md",
-      "en/03-choosing-with-if.md"
+      "en/03-choosing-with-if.md",
+      "en/04-loops.md",
+      "en/05-procedures.md"
     ]
   }
 }
