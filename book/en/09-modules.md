@@ -16,7 +16,7 @@ ENDPROC
 
 **Compatibility:** E33.
 
-`MODULE` makes declarations from a module available to the source file. The module name is not a private Ploos dependency; this example uses `exec/nodes`, which is present in E-VO 3.9.4's `modules/exec` tree.
+`MODULE` makes declarations from a module available to the source file. The module name is not a private Ploos dependency; this example uses `exec/nodes`, a standard Exec module present in E-VO 3.9.4's `modules/exec` tree. `exec/types` is present as well; `exec/nodes` is used here because it provides a concrete, recognizable OBJECT example for later lessons.
 
 ```sh
 eduamigae build examples/09-modules/modules.e
