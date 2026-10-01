@@ -16,15 +16,16 @@ PROC pushFront(head:PTR TO PTR TO node, value)
   ENDIF
 ENDPROC
 
-PROC freeList(head:PTR TO node)
+PROC freeList(head:PTR TO PTR TO node)
   DEF current:PTR TO node, next:PTR TO node
 
-  current := head
+  current := head[]
   WHILE current <> NIL
     next := current.next
     END current
     current := next
   ENDWHILE
+  head[] := NIL
 ENDPROC
 
 PROC main()
@@ -41,5 +42,5 @@ PROC main()
     current := current.next
   ENDWHILE
 
-  freeList(head)
+  freeList({head})
 ENDPROC
