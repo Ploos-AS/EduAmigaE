@@ -2,29 +2,28 @@
 set -eu
 
 ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
-EXAMPLE_DIR="$ROOT/examples/16-own-module"
-MODULE_SOURCE="$EXAMPLE_DIR/edumath.e"
-MODULE_OUTPUT="$EXAMPLE_DIR/edumath.m"
-MAIN_SOURCE="$EXAMPLE_DIR/main.e"
-MAIN_OUTPUT="$EXAMPLE_DIR/main"
+MODULE_SOURCE="$ROOT/examples/16-own-module/modules/edumath.e"
+MAIN_SOURCE="$ROOT/examples/16-own-module/main.e"
+OUT=${1:-"$ROOT/build/qualification/own-module"}
+COMPILE="$ROOT/scripts/compile-vamos.sh"
 
-if [ -z "${EVO_RUNNER:-}" ]; then
-  echo "EVO_RUNNER is required" >&2
-  exit 2
-fi
+work=$(mktemp -d)
+trap 'rm -rf "$work"' EXIT HUP INT TERM
 
-rm -f "$MODULE_OUTPUT" "$MAIN_OUTPUT"
+EDUAMIGAE_COMPILE_WORKDIR="$work" EDUAMIGAE_COMPILE_NAME=edumath \
+  "$COMPILE" "$MODULE_SOURCE" "$work/edumath.m"
 
-"$EVO_RUNNER" compile "${EVO_HOME:-}" "$MODULE_SOURCE" "$MODULE_OUTPUT"
-if [ ! -f "$MODULE_OUTPUT" ]; then
-  echo "module compile did not produce $MODULE_OUTPUT" >&2
+test -f "$work/edumath.m" || {
+  echo "module compile did not produce edumath.m" >&2
   exit 1
-fi
+}
 
-"$EVO_RUNNER" compile "${EVO_HOME:-}" "$MAIN_SOURCE" "$MAIN_OUTPUT"
-if [ ! -f "$MAIN_OUTPUT" ]; then
-  echo "client compile did not produce $MAIN_OUTPUT" >&2
+EDUAMIGAE_COMPILE_WORKDIR="$work" EDUAMIGAE_COMPILE_NAME=main \
+  "$COMPILE" "$MAIN_SOURCE" "$OUT"
+
+test -f "$OUT" || {
+  echo "client compile did not produce $OUT" >&2
   exit 1
-fi
+}
 
-printf '%s\n' "$MAIN_OUTPUT"
+printf '%s\n' "$OUT"
