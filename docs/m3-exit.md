@@ -24,3 +24,12 @@ Executable M3 examples are added to a locked milestone manifest only after their
 M3 PASS requires every locked M3 case to compile with E-VO 3.9.4, PASS every declared amiga-runtime profile, match expected guest stdout exactly, and leave zero FAIL or SKIP results.
 
 Static syntax/provenance review is not runtime qualification.
+
+
+## Evidence
+
+The self-hosted qualification workflow runs M3 only after M1 and M2 have passed. `scripts/qualify-m3.sh` materializes the locked M3 manifest, requires every case to PASS with zero SKIP, and writes `build/qualification/m3.json`.
+
+The evidence records hashes of the milestone manifest, aggregate report, and each locked case. Cases with a custom build helper also record that helper path in the evidence metadata.
+
+The own-module example and `own-module-e33.json` exist, but that case remains outside the locked M3 manifest until its E-VO 3.9.4 multi-file build has actually been qualified. Repository CI success alone does not satisfy this gate.
