@@ -31,7 +31,7 @@ END current
 current := next
 ```
 
-`freeList()` repeats this until `current = NIL`. The algorithm does not know the number of nodes in advance.
+`freeList()` repeats this until `current = NIL`. The algorithm does not know the number of nodes in advance. It also receives `{head}`, allowing it to finish with `head[] := NIL`. The caller is therefore not left holding a pointer to released memory.
 
 ## Ownership
 
