@@ -44,14 +44,23 @@ cases=[]
 for name in manifest["cases"]:
     p=pathlib.Path("qualification/cases") / name
     d=json.loads(p.read_text(encoding="utf-8"))
-    cases.append({
+    item={
         "id": d["id"],
         "path": p.as_posix(),
         "sha256": hashlib.sha256(p.read_bytes()).hexdigest(),
         "compatibility": d["compatibility"],
         "profiles": d["profiles"],
-        "build": d.get("build"),
-    })
+    }
+    build=d.get("build")
+    if build:
+        bp=pathlib.Path(build)
+        if not bp.is_file():
+            raise SystemExit(f"missing build helper for {d['id']}: {build}")
+        item["build"]={
+            "path":build,
+            "sha256":hashlib.sha256(bp.read_bytes()).hexdigest(),
+        }
+    cases.append(item)
 
 out={
     "schema":1,
