@@ -25,7 +25,7 @@ This is the module's small API.
 `main.e` imports the module:
 
 ```text
-MODULE 'edumath'
+MODULE '*edumath'
 ```
 
 The rest of the program only needs to know the exported operation. The module can change how its implementation is organized without making the client own that code.
@@ -38,7 +38,7 @@ This becomes especially important in M4 when system code begins managing Exec, D
 
 ## Build and qualification
 
-This is a multi-file example. The source forms `OPT MODULE`, `EXPORT PROC`, and `MODULE` have been checked against E-VO 3.9.4, but we do not lock an executable qualification case until the module's actual compile/install/import sequence has been run and verified with the pinned E-VO toolchain.
+This is a multi-file example. The E-VO guide documents that a `*` prefix resolves a module beside the client's source file. We therefore compile `edumath.e` to `edumath.m` first, and the client uses `MODULE '*edumath'`. `scripts/build-own-module.sh` expresses this sequence explicitly. We do not lock an executable qualification case until this sequence has actually been run and verified with the pinned E-VO toolchain.
 
 This keeps syntax/provenance separate from actual toolchain qualification.
 
