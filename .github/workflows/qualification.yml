@@ -43,3 +43,21 @@ jobs:
           name: eduamigae-m2-evidence
           path: build/qualification/
           if-no-files-found: error
+
+  m3:
+    needs: m2
+    # Machine-aware E qualification before AmigaOS-specific M4 work.
+    runs-on: [self-hosted, eduamigae, amiga-runtime]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require provisioned E-VO
+        run: test -f "${EVO_HOME:?EVO_HOME must be configured}/E-VO.guide"
+      - name: Qualify all locked M3 cases
+        run: sh scripts/qualify-m3.sh
+      - name: Upload M3 qualification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eduamigae-m3-evidence
+          path: build/qualification/
+          if-no-files-found: error
