@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "id": "own-module-e33",
+  "source": "examples/16-own-module/main.e",
+  "build": "scripts/build-own-module.sh",
+  "output": "own-module",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "double=42\n",
+    "exit": 0
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
