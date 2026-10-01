@@ -19,8 +19,18 @@ test -f "$guide" && grep -q 'Amiga E-VO v3\.9\.4' "$guide" || {
   echo "EVO_HOME is not pinned E-VO 3.9.4" >&2; exit 65;
 }
 
-work=$(mktemp -d)
-trap 'rm -rf "$work"' EXIT
+if [ -n "${EDUAMIGAE_COMPILE_WORKDIR:-}" ]; then
+  work=$EDUAMIGAE_COMPILE_WORKDIR
+  mkdir -p "$work"
+  cleanup_work=0
+else
+  work=$(mktemp -d)
+  cleanup_work=1
+fi
+cleanup() {
+  [ "$cleanup_work" -eq 0 ] || rm -rf "$work"
+}
+trap cleanup EXIT HUP INT TERM
 cp "$src" "$work/input.e"
 
 # Locate an executable supplied by an installed/release distribution.
