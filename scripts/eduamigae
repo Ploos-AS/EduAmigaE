@@ -111,10 +111,16 @@ PY
     OUTPUT=$(python3 "$case_helper" "$casefile" --field output)
     COMPATIBILITY=$(python3 "$case_helper" "$casefile" --field compatibility)
     PROFILES=$(python3 "$case_helper" "$casefile" --field profiles)
+    BUILD_HELPER=$(python3 "$case_helper" "$casefile" --field build)
     test -f "$SOURCE" || { echo "case source not found: $SOURCE" >&2; exit 66; }
     mkdir -p build/qualification
     program="build/qualification/$OUTPUT"
-    "$0" build "$SOURCE" "$program"
+    if [ -n "$BUILD_HELPER" ]; then
+      test -f "$BUILD_HELPER" || { echo "case build helper not found: $BUILD_HELPER" >&2; exit 66; }
+      sh "$BUILD_HELPER" "$program"
+    else
+      "$0" build "$SOURCE" "$program"
+    fi
     oldifs=$IFS
     IFS=,
     for profile in $PROFILES; do
