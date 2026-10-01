@@ -58,6 +58,23 @@ Exit: the learner can write, structure and debug small E33-compatible programs w
 
 Cover lists, objects, pointers, addresses, memory, modules, larger program structure, E idioms and machine-aware programming.
 
+- [x] addresses and typed pointers
+- [x] dereferencing and mutation through pointers
+- [x] dynamic allocation and release with NEW/END
+- [x] dynamically allocated arrays
+- [x] pointers to OBJECT structures
+- [x] self-referential structures and linked-list traversal
+- [x] ownership and general list cleanup
+- [x] introduce own-module/API boundaries
+- [x] Norwegian and English chapter parity for implemented M3 material
+- [ ] qualify the own-module compile/install/import sequence with E-VO 3.9.4
+- [ ] lock the own-module executable case after toolchain qualification
+- [ ] validate every locked M3 qualification case with E-VO 3.9.4
+- [ ] record amiga-runtime PASS for every declared M3 profile
+- [ ] retain a complete M3 exit report
+
+Exit: the learner can reason about addresses, ownership, dynamic structures and module boundaries before AmigaOS-specific resource management. See `docs/m3-exit.md`.
+
 ## M4 — AmigaOS programming
 
 Cover Exec and DOS fundamentals, libraries, devices, files, processes, messages, ports, ownership and resource cleanup.
