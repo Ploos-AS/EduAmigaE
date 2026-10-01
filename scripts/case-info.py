@@ -23,9 +23,17 @@ if any(not isinstance(x,str) or not safe_name.fullmatch(x) for x in d["profiles"
 q=pathlib.PurePosixPath(d["source"])
 if q.is_absolute() or ".." in q.parts:
     raise SystemExit("unsafe source path")
+build=d.get("build","")
+if build:
+    if not isinstance(build,str):
+        raise SystemExit("build must be a string")
+    b=pathlib.PurePosixPath(build)
+    if b.is_absolute() or ".." in b.parts or not build.startswith("scripts/"):
+        raise SystemExit("unsafe build helper path")
 fields={
     "id":d["id"], "source":d["source"], "output":d["output"],
-    "compatibility":d["compatibility"], "profiles":",".join(d["profiles"])
+    "compatibility":d["compatibility"], "profiles":",".join(d["profiles"]),
+    "build":build
 }
 if len(sys.argv) == 4:
     key=sys.argv[3]
