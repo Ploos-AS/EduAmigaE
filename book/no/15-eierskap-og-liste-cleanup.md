@@ -31,7 +31,7 @@ END current
 current := next
 ```
 
-`freeList()` gjentar dette til `current = NIL`. Algoritmen kjenner ikke antall noder på forhånd.
+`freeList()` gjentar dette til `current = NIL`. Algoritmen kjenner ikke antall noder på forhånd. Den mottar også `{head}`, slik at den til slutt kan sette `head[] := NIL`. Kalleren sitter dermed ikke igjen med en peker til frigjort minne.
 
 ## Eierskap
 
