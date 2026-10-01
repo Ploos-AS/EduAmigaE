@@ -31,7 +31,11 @@ cleanup() {
   [ "$cleanup_work" -eq 0 ] || rm -rf "$work"
 }
 trap cleanup EXIT HUP INT TERM
-cp "$src" "$work/input.e"
+input_name=${EDUAMIGAE_COMPILE_NAME:-input}
+case "$input_name" in
+  *[!A-Za-z0-9._-]*|'') echo "unsafe compile name: $input_name" >&2; exit 64 ;;
+esac
+cp "$src" "$work/$input_name.e"
 
 # Locate an executable supplied by an installed/release distribution.
 evo=""
@@ -55,7 +59,7 @@ vamos -c "$VAMOS_CONFIG" -H disable -m 20000 \
   -V "system:$VAMOS_SYSTEM" \
   -V "work:$work" \
   -V "emodules:$modules" \
-  work:EVO work:input NOPROGRESS IGNORECACHE
+  work:EVO "work:$input_name" NOPROGRESS IGNORECACHE
 rc=$?
 set -e
 
@@ -64,6 +68,10 @@ if [ "$rc" -ne 0 ]; then
   exit "$rc"
 fi
 
-test -f "$work/input" || { echo "E-VO returned success but produced no executable" >&2; exit 1; }
+produced="$work/$input_name"
+if grep -Eq '^[[:space:]]*OPT[[:space:]]+MODULE([[:space:]]|$)' "$src"; then
+  produced="$work/$input_name.m"
+fi
+test -f "$produced" || { echo "E-VO returned success but produced no expected output: $produced" >&2; exit 1; }
 mkdir -p "$(dirname "$out")"
-cp "$work/input" "$out"
+cp "$produced" "$out"
