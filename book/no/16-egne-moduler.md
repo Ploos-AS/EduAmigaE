@@ -25,7 +25,7 @@ Dette er modulens lille API.
 `main.e` importerer modulen:
 
 ```text
-MODULE 'edumath'
+MODULE '*edumath'
 ```
 
 Resten av programmet trenger bare å kjenne den eksporterte operasjonen. Hvordan modulen organiserer implementasjonen sin kan endres uten at klienten må eie den koden.
@@ -38,7 +38,7 @@ Dette blir spesielt viktig i M4 når systemkode begynner å håndtere Exec-, DOS
 
 ## Bygg og qualification
 
-Dette er et flerfilseksempel. Kildeformen `OPT MODULE`, `EXPORT PROC` og `MODULE` er kontrollert mot E-VO 3.9.4, men vi låser ikke en executable qualification-case før modulens faktiske compile/install/import-sekvens er kjørt og verifisert med den pinnede E-VO-toolchainen.
+Dette er et flerfilseksempel. E-VO-guiden dokumenterer at `*` foran modulnavnet søker ved siden av klientens kildefil. Derfor kompileres `edumath.e` først til `edumath.m`, og klienten bruker `MODULE '*edumath'`. `scripts/build-own-module.sh` uttrykker denne rekkefølgen eksplisitt. Vi låser ikke en executable qualification-case før denne sekvensen faktisk er kjørt og verifisert med den pinnede E-VO-toolchainen.
 
 Det skiller syntaks/proveniens fra faktisk toolchain-kvalifikasjon.
 
