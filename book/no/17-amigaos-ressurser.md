@@ -50,6 +50,15 @@ Hvis ett av svarene er uklart, er cleanup-modellen også uklar.
 
 Dette kapitlet etablerer kontrakten før vi binder undervisningen til konkrete Exec- og DOS-funksjoner. De neste kapitlene bruker ekte E-VO 3.9.4-moduler og AmigaOS-API-er, og executable caser låses først etter at syntaks og runtime-forutsetninger er kontrollert.
 
+
+## Første konkrete Exec-ressurs
+
+E-VO 3.9.4 beskriver Exec-kallene `OpenLibrary(libName, version)` og `CloseLibrary(library)`. Eksemplet `examples/17-amigaos-resources/open-library.e` bruker dem til å åpne `dos.library` med minimum versjon 33.
+
+Legg merke til kontrollflyten: `CloseLibrary()` ligger inne i grenen der `OpenLibrary()` faktisk lyktes. Programmet forsøker dermed aldri å frigjøre en ressurs det ikke eier.
+
+Qualification-casen låses ikke ennå. Først skal eksemplet faktisk kompileres med den pinnede E-VO 3.9.4-toolchainen og kjøres gjennom de deklarerte amiga-runtime-profilene.
+
 ## Oppsummering
 
 M3 lærte oss eierskap til minne og datastrukturer. M4 utvider samme disiplin til operativsystemressurser: anskaff, kontroller, bruk og frigjør.
