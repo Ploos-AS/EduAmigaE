@@ -79,6 +79,19 @@ Exit: the learner can reason about addresses, ownership, dynamic structures and 
 
 Cover Exec and DOS fundamentals, libraries, devices, files, processes, messages, ports, ownership and resource cleanup.
 
+- [ ] establish the AmigaOS resource ownership model
+- [ ] Exec fundamentals and library/resource lifetimes
+- [ ] DOS fundamentals, files and CLI interaction
+- [ ] processes/tasks and execution context
+- [ ] message ports and messages
+- [ ] devices and I/O requests
+- [ ] cleanup paths for partial acquisition and errors
+- [ ] Norwegian and English chapter parity
+- [ ] executable M4 qualification cases
+- [ ] retain a complete M4 exit report
+
+Exit: the learner can acquire, validate, use and release core AmigaOS resources without leaking them or using invalid handles.
+
 ## M5 — Intuition, graphics and interaction
 
 Cover windows, gadgets, event loops, screens, graphics, input and timing with progressively larger programs.
