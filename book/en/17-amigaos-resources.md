@@ -50,6 +50,15 @@ If one answer is unclear, the cleanup model is unclear too.
 
 This chapter establishes the contract before binding the course to concrete Exec and DOS functions. The next chapters use real E-VO 3.9.4 modules and AmigaOS APIs, and executable cases are locked only after syntax and runtime assumptions have been checked.
 
+
+## First concrete Exec resource
+
+E-VO 3.9.4 defines the Exec calls `OpenLibrary(libName, version)` and `CloseLibrary(library)`. The example `examples/17-amigaos-resources/open-library.e` uses them to open `dos.library` with minimum version 33.
+
+Notice the control flow: `CloseLibrary()` is inside the branch in which `OpenLibrary()` actually succeeded. The program therefore never attempts to release a resource it does not own.
+
+The qualification case is not locked yet. The example must first be compiled with the pinned E-VO 3.9.4 toolchain and run through the declared amiga-runtime profiles.
+
 ## Summary
 
 M3 taught ownership of memory and data structures. M4 extends the same discipline to operating-system resources: acquire, check, use, and release.
