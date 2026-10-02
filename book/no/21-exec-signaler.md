@@ -42,7 +42,7 @@ event source -> signal bit -> Wait(mask) -> handle event
 
 `AllocSignal()` og `FreeSignal()` danner et ressurspar når programmet selv reserverer en signalbit. Et signalbit-felt som allerede tilhører en annen OS-ressurs, for eksempel en message port, skal derimot behandles etter eierskapsreglene til den ressursen.
 
-Vi lager ikke et `AllocSignal()`-qualification-eksempel ennå. FD-en verifiserer funksjonssignaturene, men før kurset lærer en konkret feiltest skal returkontrakten verifiseres eksplisitt mot autoritativ API-dokumentasjon eller et kvalifisert toolchain/runtime-resultat.
+Den dokumenterte Exec-kontrakten bruker `AllocSignal(-1)` for å be om neste ledige signalbit og returnerer `-1` dersom ingen er tilgjengelig. `examples/21-exec-signals/allocate-signal.e` bruker derfor akkurat denne testen. Et vellykket signalnummer frigjøres med `FreeSignal(signalNumber)`. Qualification-casen låses fortsatt først etter faktisk E-VO 3.9.4-kompilering og amiga-runtime-kjøring.
 
 ## Upstream-eksempel
 
