@@ -23,7 +23,8 @@
       "no/17-amigaos-ressurser.md",
       "no/18-dos-filer.md",
       "no/19-lese-filer.md",
-      "no/20-exec-task.md"
+      "no/20-exec-task.md",
+      "no/21-exec-signaler.md"
     ],
     "en": [
       "en/00-getting-started.md",
@@ -46,7 +47,8 @@
       "en/17-amigaos-resources.md",
       "en/18-dos-files.md",
       "en/19-reading-files.md",
-      "en/20-exec-task.md"
+      "en/20-exec-task.md",
+      "en/21-exec-signals.md"
     ]
   }
 }
