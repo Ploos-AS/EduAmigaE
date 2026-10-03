@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "allocate-signal-e33",
+  "source": "examples/21-exec-signals/allocate-signal.e",
+  "output": "allocate-signal",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "signal allocated\n"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
