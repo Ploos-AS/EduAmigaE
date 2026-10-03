@@ -81,7 +81,7 @@ The stable final line is:
 timer request complete
 ```
 
-The qualification case is locked only after actual E-VO 3.9.4 compilation and amiga-runtime execution. Timing-dependent `CheckIO()` text must not be used as the sole expected stdout.
+The qualification case is locked only after actual E-VO 3.9.4 compilation and amiga-runtime execution. The timing-dependent `CheckIO()` observation is deliberately not printed, so the success stdout can be checked exactly.
 
 ## Cancellation
 
