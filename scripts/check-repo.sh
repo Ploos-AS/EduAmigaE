@@ -33,6 +33,9 @@ for casefile in \
   qualification/cases/current-task-e33.json \
   qualification/cases/allocate-signal-e33.json \
   qualification/cases/self-signal-e33.json \
+  qualification/cases/message-port-e33.json \
+  qualification/cases/exec-message-e33.json \
+  qualification/cases/request-reply-e33.json \
   qualification/cases/open-timer-e33.json \
   qualification/cases/timer-doio-e33.json \
   qualification/cases/timer-async-e33.json \
