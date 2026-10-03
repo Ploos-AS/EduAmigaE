@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "timer-async-e33",
+  "source": "examples/28-device-async/timer-async.e",
+  "output": "timer-async",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "timer request complete\n"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
