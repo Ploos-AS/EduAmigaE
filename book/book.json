@@ -28,7 +28,8 @@
       "no/22-vente-pa-signaler.md",
       "no/23-message-ports.md",
       "no/24-exec-meldinger.md",
-      "no/25-request-reply.md"
+      "no/25-request-reply.md",
+      "no/26-devices-og-io-request.md"
     ],
     "en": [
       "en/00-getting-started.md",
@@ -56,7 +57,8 @@
       "en/22-waiting-for-signals.md",
       "en/23-message-ports.md",
       "en/24-exec-messages.md",
-      "en/25-request-reply.md"
+      "en/25-request-reply.md",
+      "en/26-devices-and-io-request.md"
     ]
   }
 }
