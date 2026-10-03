@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "read-file-e33",
+  "source": "examples/19-dos-read/read-file.e",
+  "output": "read-file",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "read=EduAmigaE\n"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
