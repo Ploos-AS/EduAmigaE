@@ -11,6 +11,7 @@ PROC main()
   IF port
     NEW message
     IF message
+      message.ln.type := NT_MESSAGE
       message.replyport := NIL
       message.length := SIZEOF mn
 
