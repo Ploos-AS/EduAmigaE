@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "cancel-timer-e33",
+  "source": "examples/29-device-cancel/cancel-timer.e",
+  "output": "cancel-timer",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "timer request stopped\n"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
