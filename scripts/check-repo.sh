@@ -141,3 +141,50 @@ if f'amitools[vamos]==${{AMITOOLS_VERSION}}' not in docker:
 PY
 
 echo "repository checks: PASS"
+
+
+# M4 candidate manifest is the canonical source for candidate policy.
+python3 - <<'PY'
+import json, pathlib, re
+
+candidate_path=pathlib.Path("qualification/m4-candidates.json")
+locked_path=pathlib.Path("qualification/milestones/m4.json")
+workflow_path=pathlib.Path(".github/workflows/m4-candidate.yml")
+
+c=json.loads(candidate_path.read_text(encoding="utf-8"))
+if c.get("schema") != 1 or c.get("milestone") != "M4" or c.get("status") != "CANDIDATES":
+    raise SystemExit("invalid qualification/m4-candidates.json")
+cases=c.get("cases")
+if not isinstance(cases,list) or not cases:
+    raise SystemExit("M4 candidate manifest must contain cases")
+if len(cases) != len(set(cases)):
+    raise SystemExit("duplicate M4 candidate")
+for name in cases:
+    if pathlib.PurePath(name).name != name or not name.endswith(".json"):
+        raise SystemExit(f"invalid M4 candidate filename: {name}")
+    if not (pathlib.Path("qualification/cases") / name).is_file():
+        raise SystemExit(f"missing M4 candidate case: {name}")
+
+locked=json.loads(locked_path.read_text(encoding="utf-8"))
+overlap=set(cases) & set(locked.get("cases",[]))
+if overlap:
+    raise SystemExit("M4 cases cannot be both candidate and locked: "+", ".join(sorted(overlap)))
+
+lines=workflow_path.read_text(encoding="utf-8").splitlines()
+options=[]
+inside=False
+for line in lines:
+    if line.strip() == "options:":
+        inside=True
+        continue
+    if inside:
+        m=re.match(r"^\s+-\s+([A-Za-z0-9._-]+\.json)\s*$",line)
+        if m:
+            options.append(m.group(1))
+            continue
+        if line.strip() and not line.startswith("          "):
+            break
+if options != cases:
+    raise SystemExit("M4 workflow dropdown differs from qualification/m4-candidates.json")
+print(f"M4 candidate manifest: {len(cases)} cases, workflow in sync")
+PY
