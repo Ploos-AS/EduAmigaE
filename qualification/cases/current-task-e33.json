@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "current-task-e33",
+  "source": "examples/20-exec-task/current-task.e",
+  "output": "current-task",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "current task ok\n"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
