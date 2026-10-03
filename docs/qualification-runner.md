@@ -27,16 +27,15 @@ No Kickstart, AmigaOS files, or E-VO distribution are committed to EduAmigaE.
 
 ## Preflight
 
-Before enabling the runner for qualification, check:
+Before enabling the runner for qualification, run the repository preflight:
 
 ```sh
-test -f "$EVO_HOME/E-VO.guide"
-command -v amiga-runtime
-sh scripts/check-repo.sh
-sh scripts/eduamigae doctor
+sh scripts/qualification-preflight.sh
 ```
 
-Then verify the two runtime profiles used by the course are available:
+The script requires E-VO, `amiga-runtime`, repository checks and the student-environment doctor to pass. It also validates the first M4 candidate and its declared profiles.
+
+The two runtime profiles used by the first candidate are:
 
 ```text
 amiga-ocs-68000-1m
