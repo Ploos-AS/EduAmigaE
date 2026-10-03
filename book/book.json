@@ -31,7 +31,8 @@
       "no/25-request-reply.md",
       "no/26-devices-og-io-request.md",
       "no/27-synkron-doio.md",
-      "no/28-asynkron-sendio.md"
+      "no/28-asynkron-sendio.md",
+      "no/29-cancellation-og-cleanup.md"
     ],
     "en": [
       "en/00-getting-started.md",
@@ -62,7 +63,8 @@
       "en/25-request-reply.md",
       "en/26-devices-and-io-request.md",
       "en/27-synchronous-doio.md",
-      "en/28-asynchronous-sendio.md"
+      "en/28-asynchronous-sendio.md",
+      "en/29-cancellation-and-cleanup.md"
     ]
   }
 }
