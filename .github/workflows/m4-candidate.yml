@@ -1,0 +1,43 @@
+name: M4 Candidate Qualification
+
+on:
+  workflow_dispatch:
+    inputs:
+      case:
+        description: Unlocked M4 qualification candidate
+        required: true
+        type: choice
+        options:
+          - open-library-e33.json
+          - write-file-e33.json
+          - read-file-e33.json
+          - current-task-e33.json
+          - allocate-signal-e33.json
+          - self-signal-e33.json
+          - message-port-e33.json
+          - exec-message-e33.json
+          - request-reply-e33.json
+          - open-timer-e33.json
+          - timer-doio-e33.json
+          - timer-async-e33.json
+          - cancel-timer-e33.json
+
+permissions:
+  contents: read
+
+jobs:
+  candidate:
+    runs-on: [self-hosted, eduamigae, amiga-runtime]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Runner preflight
+        run: sh scripts/qualification-preflight.sh
+      - name: Qualify candidate
+        run: sh scripts/qualify-m4-candidate.sh "${{ inputs.case }}"
+      - name: Upload candidate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eduamigae-m4-candidate-${{ inputs.case }}
+          path: build/qualification/
+          if-no-files-found: error
