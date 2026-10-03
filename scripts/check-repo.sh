@@ -14,6 +14,8 @@ done
 
 test -f scripts/qualification-preflight.sh
 test -f scripts/qualify-m4-candidate.sh
+test -f scripts/promote-m4-candidate.py
+python3 -m py_compile scripts/promote-m4-candidate.py
 sh -n scripts/qualify-m4-candidate.sh
 
 help=$(sh scripts/eduamigae help)
