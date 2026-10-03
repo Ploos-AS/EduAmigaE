@@ -19,8 +19,9 @@ PROC main()
         SendIO(request)
 
         completed := CheckIO(request)
+        /* CheckIO is an observation only; its timing is deliberately not printed. */
         IF completed = NIL
-          WriteF('timer request in flight\n')
+          /* The request is still in flight here. */
         ENDIF
 
         WaitIO(request)
