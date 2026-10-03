@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "open-timer-e33",
+  "source": "examples/26-device-lifetime/open-timer.e",
+  "output": "open-timer",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "timer.device opened\n"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
