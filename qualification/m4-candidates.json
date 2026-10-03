@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "milestone": "M4",
+  "status": "CANDIDATES",
+  "cases": [
+    "open-library-e33.json",
+    "write-file-e33.json",
+    "read-file-e33.json",
+    "current-task-e33.json",
+    "allocate-signal-e33.json",
+    "self-signal-e33.json",
+    "message-port-e33.json",
+    "exec-message-e33.json",
+    "request-reply-e33.json",
+    "open-timer-e33.json",
+    "timer-doio-e33.json",
+    "timer-async-e33.json",
+    "cancel-timer-e33.json"
+  ]
+}
