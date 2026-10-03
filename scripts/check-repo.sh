@@ -23,6 +23,23 @@ printf '%s\n' "$caseinfo" | python3 -c 'import json,sys; d=json.load(sys.stdin);
 [ "$(python3 scripts/case-info.py qualification/cases/hello-e33.json --field output)" = "hello" ]
 [ -z "$(python3 scripts/case-info.py qualification/cases/hello-e33.json --field build)" ]
 [ "$(python3 scripts/case-info.py qualification/cases/own-module-e33.json --field build)" = "scripts/build-own-module.sh" ]
+
+for casefile in \
+  qualification/cases/open-timer-e33.json \
+  qualification/cases/timer-doio-e33.json \
+  qualification/cases/cancel-timer-e33.json
+do
+  python3 scripts/case-info.py "$casefile" >/dev/null
+done
+
+python3 - <<'PY'
+import json
+from pathlib import Path
+m=json.loads(Path("qualification/milestones/m4.json").read_text(encoding="utf-8"))
+assert m["schema"] == 1
+assert m["milestone"] == "M4"
+assert m["cases"] == [], "M4 candidates must remain unlocked until runtime qualification"
+PY
 ! grep -q 'eval ' scripts/eduamigae
 
 tmp=$(mktemp -d)
