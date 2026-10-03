@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "timer-doio-e33",
+  "source": "examples/27-device-doio/timer-doio.e",
+  "output": "timer-doio",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "timer request complete\n"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
