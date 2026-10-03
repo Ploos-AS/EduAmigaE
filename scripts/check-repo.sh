@@ -13,6 +13,8 @@ for f in scripts/*.sh scripts/eduamigae; do
 done
 
 test -f scripts/qualification-preflight.sh
+test -f scripts/qualify-m4-candidate.sh
+sh -n scripts/qualify-m4-candidate.sh
 
 help=$(sh scripts/eduamigae help)
 for cmd in doctor import-evo build run test qualify qualify-all; do
