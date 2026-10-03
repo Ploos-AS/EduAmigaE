@@ -61,3 +61,21 @@ jobs:
           name: eduamigae-m3-evidence
           path: build/qualification/
           if-no-files-found: error
+
+  m4:
+    needs: m3
+    # AmigaOS Exec/DOS/device qualification. Cases remain gated until locked.
+    runs-on: [self-hosted, eduamigae, amiga-runtime]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require provisioned E-VO
+        run: test -f "${EVO_HOME:?EVO_HOME must be configured}/E-VO.guide"
+      - name: Qualify all locked M4 cases
+        run: sh scripts/qualify-m4.sh
+      - name: Upload M4 qualification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eduamigae-m4-evidence
+          path: build/qualification/
+          if-no-files-found: error
