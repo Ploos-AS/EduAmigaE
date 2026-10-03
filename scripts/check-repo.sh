@@ -27,8 +27,15 @@ printf '%s\n' "$caseinfo" | python3 -c 'import json,sys; d=json.load(sys.stdin);
 [ "$(python3 scripts/case-info.py qualification/cases/own-module-e33.json --field build)" = "scripts/build-own-module.sh" ]
 
 for casefile in \
+  qualification/cases/open-library-e33.json \
+  qualification/cases/write-file-e33.json \
+  qualification/cases/read-file-e33.json \
+  qualification/cases/current-task-e33.json \
+  qualification/cases/allocate-signal-e33.json \
+  qualification/cases/self-signal-e33.json \
   qualification/cases/open-timer-e33.json \
   qualification/cases/timer-doio-e33.json \
+  qualification/cases/timer-async-e33.json \
   qualification/cases/cancel-timer-e33.json
 do
   python3 scripts/case-info.py "$casefile" >/dev/null
