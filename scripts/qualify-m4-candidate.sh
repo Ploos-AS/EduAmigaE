@@ -12,6 +12,14 @@ esac
 casefile="qualification/cases/$casearg"
 [ -f "$casefile" ] || { echo "candidate not found: $casefile" >&2; exit 66; }
 
+case "$casearg" in
+  open-library-e33.json|write-file-e33.json|read-file-e33.json|current-task-e33.json|\
+  allocate-signal-e33.json|self-signal-e33.json|message-port-e33.json|exec-message-e33.json|\
+  request-reply-e33.json|open-timer-e33.json|timer-doio-e33.json|timer-async-e33.json|\
+  cancel-timer-e33.json) ;;
+  *) echo "not an approved M4 candidate: $casearg" >&2; exit 65 ;;
+esac
+
 : "${EVO_HOME:?EVO_HOME must point to an imported E-VO 3.9.4 distribution}"
 command -v amiga-runtime >/dev/null 2>&1 || { echo "amiga-runtime is required" >&2; exit 69; }
 
