@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "open-library-e33",
+  "source": "examples/17-amigaos-resources/open-library.e",
+  "output": "open-library",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "dos.library opened\n"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
