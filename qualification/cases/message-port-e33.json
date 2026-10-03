@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "message-port-e33",
+  "source": "examples/23-message-port/create-port.e",
+  "output": "message-port",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "message port ready\n"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
