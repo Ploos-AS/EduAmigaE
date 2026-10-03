@@ -12,6 +12,8 @@ for f in scripts/*.sh scripts/eduamigae; do
   sh -n "$f"
 done
 
+test -f scripts/qualification-preflight.sh
+
 help=$(sh scripts/eduamigae help)
 for cmd in doctor import-evo build run test qualify qualify-all; do
   printf '%s\n' "$help" | grep -q "eduamigae $cmd"
