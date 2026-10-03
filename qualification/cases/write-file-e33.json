@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "write-file-e33",
+  "source": "examples/18-dos-files/write-file.e",
+  "output": "write-file",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "file write ok\n"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
