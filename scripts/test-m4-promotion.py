@@ -38,4 +38,26 @@ with tempfile.TemporaryDirectory() as td:
     writej(ep,evidence); cp.write_text(cp.read_text()+"\n",encoding="utf-8")
     assert run(t,ep).returncode != 0
 
+
+    # restore pristine case and baseline evidence for metadata rejection tests
+    shutil.copy2(ROOT/"qualification/cases"/CASE,cp)
+    evidence["case"]["sha256"]=hashlib.sha256(cp.read_bytes()).hexdigest()
+
+    for label, mutate in [
+        ("wrong id", lambda d: d.__setitem__("id","wrong-id")),
+        ("wrong compatibility", lambda d: d["case"].__setitem__("compatibility","EVO")),
+        ("wrong profiles", lambda d: d["case"].__setitem__("profiles",["a1200-020"])),
+        ("path traversal", lambda d: d["case"].__setitem__("path","qualification/cases/../m4-candidates.json")),
+    ]:
+        writej(t/"qualification/m4-candidates.json",{"schema":1,"milestone":"M4","status":"CANDIDATES","cases":[CASE]})
+        writej(t/"qualification/milestones/m4.json",{"schema":1,"milestone":"M4","cases":[]})
+        bad=json.loads(json.dumps(evidence)); mutate(bad); writej(ep,bad)
+        assert run(t,ep).returncode != 0,label
+
+    # reject promotion if the case is already locked
+    writej(ep,evidence)
+    writej(t/"qualification/m4-candidates.json",{"schema":1,"milestone":"M4","status":"CANDIDATES","cases":[CASE]})
+    writej(t/"qualification/milestones/m4.json",{"schema":1,"milestone":"M4","cases":[CASE]})
+    assert run(t,ep).returncode != 0,"already locked"
+
 print("M4 promotion structural tests: PASS")
