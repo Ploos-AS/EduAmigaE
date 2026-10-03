@@ -13,9 +13,12 @@ if ev.get("schema") != 1 or ev.get("milestone") != "M4" or ev.get("status") != "
 
 item=ev.get("case") or {}
 rel=item.get("path")
-if not isinstance(rel,str) or not rel.startswith("qualification/cases/"):
+if not isinstance(rel,str):
     raise SystemExit("invalid evidence case path")
-case_path=root/rel
+relpath=pathlib.PurePosixPath(rel)
+if relpath.is_absolute() or ".." in relpath.parts or relpath.parts[:2] != ("qualification","cases") or len(relpath.parts) != 3:
+    raise SystemExit("invalid evidence case path")
+case_path=root/pathlib.Path(*relpath.parts)
 case=json.loads(case_path.read_text(encoding="utf-8"))
 if ev.get("id") != case.get("id"):
     raise SystemExit("evidence id does not match case")
