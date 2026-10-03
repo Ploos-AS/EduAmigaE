@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "exec-message-e33",
+  "source": "examples/24-exec-message/send-message.e",
+  "output": "exec-message",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "message received\n"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
