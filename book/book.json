@@ -24,7 +24,8 @@
       "no/18-dos-filer.md",
       "no/19-lese-filer.md",
       "no/20-exec-task.md",
-      "no/21-exec-signaler.md"
+      "no/21-exec-signaler.md",
+      "no/22-vente-pa-signaler.md"
     ],
     "en": [
       "en/00-getting-started.md",
@@ -48,7 +49,8 @@
       "en/18-dos-files.md",
       "en/19-reading-files.md",
       "en/20-exec-task.md",
-      "en/21-exec-signals.md"
+      "en/21-exec-signals.md",
+      "en/22-waiting-for-signals.md"
     ]
   }
 }
