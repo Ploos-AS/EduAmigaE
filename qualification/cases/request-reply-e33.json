@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "request-reply-e33",
+  "source": "examples/25-exec-reply/request-reply.e",
+  "output": "request-reply",
+  "compatibility": "E33",
+  "expected": {
+    "stdout": "message replied\n"
+  },
+  "profiles": [
+    "amiga-ocs-68000-1m",
+    "a1200-020"
+  ]
+}
