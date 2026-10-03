@@ -8,6 +8,7 @@ PROC main()
   DEF message:PTR TO mn
   DEF received:PTR TO mn
   DEF replied:PTR TO mn
+  DEF ownsMessage=FALSE
 
   requestPort := CreateMsgPort()
   replyPort := CreateMsgPort()
@@ -15,11 +16,13 @@ PROC main()
   IF requestPort AND replyPort
     NEW message
     IF message
+      ownsMessage := TRUE
       message.ln.type := NT_MESSAGE
       message.replyport := replyPort
       message.length := SIZEOF mn
 
       PutMsg(requestPort, message)
+      ownsMessage := FALSE
 
       WaitPort(requestPort)
       received := GetMsg(requestPort)
@@ -31,6 +34,7 @@ PROC main()
         replied := GetMsg(replyPort)
 
         IF replied = message
+          ownsMessage := TRUE
           WriteF('message replied\n')
         ELSE
           WriteF('reply mismatch\n')
@@ -39,7 +43,7 @@ PROC main()
         WriteF('request mismatch\n')
       ENDIF
 
-      END message
+      IF ownsMessage THEN END message
     ELSE
       WriteF('message allocation failed\n')
     ENDIF
